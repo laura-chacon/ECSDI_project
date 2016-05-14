@@ -18,8 +18,8 @@ def busqueda():
 	SELECT ?nombre
 	  WHERE { 
 	  ?user usuario:nombre ?nombre.
-	  FILTER(?nombre='Esther').
-	  }.
+	  FILTER( str(?nombre) = "Esther").
+	  }
     """, initNs = dict(usuario="http://www.owl-ontologies.com/ECSDI/projectX.owl#"))
     print('resultados')
     for row in result.result: 
