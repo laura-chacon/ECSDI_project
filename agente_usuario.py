@@ -9,18 +9,23 @@ app = Flask(__name__)
 
 def busqueda():
   g = Graph()
-  n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl')
-  g.parse('basededatos1.owl', format='xml')
-  result = g.query(
-    """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-       PREFIX usuario: <http://www.owl-ontologies.com/ECSDI/projectX.owl#>
-       SELECT ?user
-        WHERE { ?user usuario:nombre ? "Esther"
-      }
-  """)
-  print('resultados')
-  for s,p,o in result: 
-    print o
+  print ('antes del load')
+  g.load('basededatos1.owl', format='xml')
+  print ('hemos cargado el grafo')
+  try:
+    result = g.query(
+      """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+	SELECT ?nombre
+	  WHERE { 
+	  ?user usuario:nombre ?nombre.
+	  FILTER(?nombre='Esther').
+	  }.
+    """, initNs = dict(usuario="http://www.owl-ontologies.com/ECSDI/projectX.owl#"))
+    print('resultados')
+    for row in result.result: 
+      print row
+  except Exception,e: 
+    print str(e)
   peticion = {'categoria': 'electronica'}
   r = requests.get('http://127.0.0.1:9001/busqueda_productos', params=peticion)
   return r.text
