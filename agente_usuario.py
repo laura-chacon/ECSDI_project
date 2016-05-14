@@ -1,6 +1,7 @@
 from flask import Flask
 import requests
 from rdflib import Graph
+from rdflib import URIRef, BNode, Literal, Namespace, RDF
 
 app = Flask(__name__)
 
@@ -8,9 +9,18 @@ app = Flask(__name__)
 
 def busqueda():
   g = Graph()
-  g.parse('/home2/users/alumnes/1149684/dades/linux/ECSDI/ProjectX.owl', format='xml')
-  for s, p, o in g:
-    print s, p, o
+  n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl')
+  g.parse('basededatos1.owl', format='xml')
+  result = g.query(
+    """PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+       PREFIX usuario: <http://www.owl-ontologies.com/ECSDI/projectX.owl#>
+       SELECT ?user
+        WHERE { ?user usuario:nombre ? "Esther"
+      }
+  """)
+  print('resultados')
+  for s,p,o in result: 
+    print o
   peticion = {'categoria': 'electronica'}
   r = requests.get('http://127.0.0.1:9001/busqueda_productos', params=peticion)
   return r.text
