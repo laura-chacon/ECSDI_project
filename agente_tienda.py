@@ -29,15 +29,45 @@ def busqueda_productos():
 	  result.append(str(o.toPython()))
     else:
       return 'No Category Match'
-    
-    print 'Estamos printando'
-    print result
-    print 'Enviamos'
   
   except Exception,e: 
     print str(e)
     
   return str(result)
+
+@app.route('/allproducts')
+
+def all_products():
+  
+  params = request.args.get('categoria')
+  g = Graph()
+  try:
+    g.parse('basededatos1.owl', format='xml')
+  except Exception,e:
+    print str(e)
+  result = []
+  n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
+  try:
+    prod = g.triples((None,RDF.type, n.Cosmetica))
+    for s,p,o in prod:
+      nprod = g.triples((s,n.nombre,None))
+      for s, p, o in nprod:
+	result.append(str(o.toPython()))
+    prod = g.triples((None,RDF.type, n.Electronica))
+    for s,p,o in prod:
+      nprod = g.triples((s,n.nombre,None))
+      for s, p, o in nprod:
+	result.append(str(o.toPython()))
+    prod = g.triples((None,RDF.type, n.Ropa))
+    for s,p,o in prod:
+      nprod = g.triples((s,n.nombre,None))
+      for s, p, o in nprod:
+	result.append(str(o.toPython()))	  
+  except Exception,e: 
+    print str(e)
+    
+  return str(result)
+
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)

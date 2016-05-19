@@ -16,6 +16,12 @@ def busqueda():
   print r
   return str(r.content)
 
+@app.route('/catalog')
+
+def catalog():
+  r = requests.get('http://127.0.0.1:9001/allproducts')
+  print r
+  return str(r.content)
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)
