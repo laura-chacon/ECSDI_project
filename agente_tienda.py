@@ -27,6 +27,19 @@ def busqueda_productos():
 	nprod = g.triples((s,n.nombre,None))
 	for s, p, o in nprod:
 	  result.append(str(o.toPython()))
+    elif params == ('Electronica'):
+      prod = g.triples((None,RDF.type, n.Electronica))
+      for s,p,o in prod:
+	nprod = g.triples((s,n.nombre,None))
+	for s, p, o in nprod:
+	  result.append(str(o.toPython()))
+    elif params == ('Ropa'):
+      prod = g.triples((None,RDF.type, n.Ropa))
+      for s,p,o in prod:
+	nprod = g.triples((s,n.nombre,None))
+	for s, p, o in nprod:
+	  result.append(str(o.toPython()))
+    
     else:
       return 'No Category Match'
   
