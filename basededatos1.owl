@@ -258,7 +258,7 @@
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
   </rdf:Description>
   <rdf:Description rdf:about="#Camiseta">
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></nombre>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camiseta</nombre>
     <rdf:type rdf:resource="#Ropa"/>
     <VendidoPor rdf:resource="#VendedorExterno_Pepe"/>
     <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">23</precio>
@@ -431,7 +431,7 @@
     <En rdf:resource="#CentroLogisticoBarcelona"/>
     <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">324</precio>
     <rdf:type rdf:resource="#Electronica"/>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></nombre>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Televisor</nombre>
   </rdf:Description>
   <rdf:Description rdf:about="#RealizarDevolucion">
     <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>

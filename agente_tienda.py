@@ -1,15 +1,43 @@
 from flask import Flask, request
+from rdflib import Graph
+from rdflib import URIRef, BNode, Literal, Namespace, RDF
+from rdflib.namespace import FOAF
+from rdflib.namespace import XSD
+import rdflib
 
 app = Flask(__name__)
+
 
 @app.route('/busqueda_productos')
 
 def busqueda_productos():
   
   params = request.args.get('categoria')
+  g = Graph()
+  try:
+    g.parse('basededatos1.owl', format='xml')
+  except Exception,e:
+    print str(e)
+  result = []
+  n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
+  try:
+    if params == ('Cosmetica'):
+      prod = g.triples((None,RDF.type, n.Cosmetica))
+      for s,p,o in prod:
+	nprod = g.triples((s,n.nombre,None))
+	for s, p, o in nprod:
+	  result.append(str(o.toPython()))
+    else:
+      return 'No Category Match'
+    
+    print 'Estamos printando'
+    print result
+    print 'Enviamos'
   
-  print params
-  return "chupis"
+  except Exception,e: 
+    print str(e)
+    
+  return str(result)
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)

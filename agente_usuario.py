@@ -11,29 +11,10 @@ app = Flask(__name__)
 @app.route('/busqueda')
 
 def busqueda():
-  g = Graph()
-  print ('antes del load')
-  try:
-    g.parse('basededatos1.owl', format='xml')
-  except Exception,e:
-    print str(e)
-  print ('hemos cargado el grafo')
-  n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
-  
-  #Para buscar con g.triples se necesita especificar el tipo de XML SCHEMA que es: int, string, etc... Mirarse en el .owl
-  try:
-    z = g.triples((None, n.nombre,Literal('Esther', datatype= XSD.string)))
-    for _,_,o in z:
-      print type(o)
-      print o
-      if (Literal(23).eq(o)):
-	print('equal')
-	
-  except Exception,e: 
-    print str(e)
-  peticion = {'categoria': 'electronica'}
+  peticion = {'categoria': 'Cosmetica'}
   r = requests.get('http://127.0.0.1:9001/busqueda_productos', params=peticion)
-  return r.text
+  print r
+  return str(r.content)
 
 
 if __name__ == '__main__':
