@@ -1,0 +1,24 @@
+<!DOCTYPE html />
++<HTML>
++   <HEAD>
++      <TITLE>
++         Buscar Productoss 
++      </TITLE>
++   </HEAD>
++<BODY>
++	<form method="post" action="{{ url_for('getCategory') }}">
++	<div>
++			<label>Escribe la categoria:</label>
++	   		<input type="checkbox" name="categoria" id="Cosmetica" > Cosmetica </input>
++	   		<input type="checkbox" name="categoria" id="Electronica"> Electronica </input>
++	   		<input type="checkbox" name="categoria" id="Ropa" > Ropa </input>
++	   		
++   	</div>
++   	<div>
++   		<label> Escribe el precio: </label>
++   		<input type="text" name="precio" value="" />
++   	</div>
+	<input type="submit" value="Enviar"></input>
++   	</form>
++</BODY>
++</HTML> 
