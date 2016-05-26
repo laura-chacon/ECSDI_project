@@ -63,7 +63,7 @@ def getCategory():
 @app.route('/pedidos')
 
 def pedidos():
-  r = request.get('http://127.0.0.1:9001/pedidos')
+  r = requests.get('http://127.0.0.1:9001/pedidos')
   return r.content
 
 if __name__ == '__main__':

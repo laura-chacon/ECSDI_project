@@ -175,14 +175,23 @@ def all_products():
 def pedidos():
   
   try:
-    params = json.loads(request.data)
     g.parse('basededatos1.owl', format='xml')
     compras = g.triples((None,RDF.type, n.Compra))
     for s,p,o in compras:
       print s,p,o
-      enviado = g.triples((s,n.EnviadorPor, None))
+      enviado = g.triples((s,n.Contiene, None))
       for s,p,o in enviado:
-	print s,p,o
+	print "Sujeto"
+	print s
+	print "Predicado"
+	print p
+	print "Objeto"
+	print o.toPython()
+	producto = g.triples((o, n.nombre, None))
+	for s,p,o in producto:
+	  print "Nombre"
+	  print o
+      
     return 'OK'
   except Exception,e:
     print str(e)
