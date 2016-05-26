@@ -57,13 +57,12 @@ def busqueda_productos():
   if precioFiltrado["MayorA100"] == 1:
     filtradoDePrecio = "MayorA100"
   
-  
+  params = params['Categoria']
+  if params["Cosmetica"] == 1 or params["Electronica"] == 1 or params["Ropa"] == 1:
+    isCategorySelected = 1
   n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
   try:
-    params = params['Categoria']
-    if params["Cosmetica"] == 1:
-      if isCategorySelected == 0:
-	isCategorySelected = 1
+    if params["Cosmetica"] == 1 or isCategorySelected == 0:
       prod = g.triples((None,RDF.type, n.Cosmetica))
       for s,p,o in prod:
 	nprod = g.triples((s,n.nombre,None))
@@ -79,9 +78,7 @@ def busqueda_productos():
 		result.append({'nombre': nombre, 'precio': precio})
 	    else:
 	      result.append({'nombre': nombre, 'precio': precio})
-    if params["Electronica"] == 1:
-      if isCategorySelected == 0:
-	isCategorySelected = 1
+    if params["Electronica"] == 1 or isCategorySelected == 0:
       prod = g.triples((None,RDF.type, n.Electronica))
       for s,p,o in prod:
 	nprod = g.triples((s,n.nombre,None))
@@ -97,9 +94,7 @@ def busqueda_productos():
 		result.append({'nombre': nombre, 'precio': precio})
 	    else:
 	      result.append({'nombre': nombre, 'precio': precio})  
-    if params["Ropa"] == 1:
-      if isCategorySelected == 0:
-	isCategorySelected = 1
+    if params["Ropa"] == 1 or isCategorySelected == 0:
       prod = g.triples((None,RDF.type, n.Ropa))
       for s,p,o in prod:
 	nprod = g.triples((s,n.nombre,None))
@@ -116,7 +111,7 @@ def busqueda_productos():
 	    else:
 	      result.append({'nombre': nombre, 'precio': precio})
 	      
-      
+      #No hay categoria 
   except Exception,e: 
     print str(e)
   jsondata = json.dumps(result)
@@ -163,7 +158,8 @@ def all_products():
 	precio = 0
 	for s, p, o in nprec:
 	  precio = o.toPython()
-	result.append({'nombre': nombre, 'precio': precio})	  
+	result.append({'nombre': nombre, 'precio': precio})
+	
   except Exception,e: 
     print str(e)
   jsondata = json.dumps(result)
