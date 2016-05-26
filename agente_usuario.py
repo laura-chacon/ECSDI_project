@@ -32,7 +32,8 @@ def busqueda():
 
 def catalog():
   r = requests.get('http://127.0.0.1:9001/allproducts')
-  return str(r.content)
+  print r.content
+  return render_template('listofproducts.html', products=json.loads(r.content))
 
 @app.route('/getCategory', methods=['POST'])
 def getCategory():
@@ -54,10 +55,18 @@ def getCategory():
       peticion["Precio"]["MayorA100"] = 1
     jsondata = json.dumps(peticion)
     r = requests.get('http://127.0.0.1:9001/busqueda_productos', data=jsondata)
-    return str(r.content)
+    return render_template('listofproducts.html', products=json.loads(r.content))
   except Exception,e:
     print str(e)
     return 'Bad'
 
+@app.route('/pedidos')
+
+def pedidos():
+  r = request.get('http://127.0.0.1:9001/pedidos')
+  return r.content
+
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)
+  
+ 

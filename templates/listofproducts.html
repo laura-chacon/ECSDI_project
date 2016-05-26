@@ -1,0 +1,13 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Buscar Productoss 
+      </TITLE>
+   </HEAD>
+<BODY>
+	{% for prod in products %}
+	<p>{{ prod['nombre'] }} {{ prod['precio']}}€</p>
+	{% endfor %}
+</BODY>
+</HTML> 

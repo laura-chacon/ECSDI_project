@@ -9,10 +9,11 @@ import rdflib
 app = Flask(__name__)
 
 g = Graph()
+n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
 
 
 
-def precioEnIntervalo(precio, filtradoDePrecio) :
+def precioEnIntervalo(precio, filtradoDePrecio):
   if filtradoDePrecio == "De0a30":
     if precio >= 0 and precio <= 30: 
       return True
@@ -25,6 +26,14 @@ def precioEnIntervalo(precio, filtradoDePrecio) :
   else:
     return False
   
+def obtenerNombre(sujeto):
+  nprod = g.triples((sujeto,n.nombre,None))
+  nombre = ''
+  for s, p, o in nprod:
+    nombre = o.toPython()
+  return nombre
+
+
 
 @app.route('/busqueda_productos')
 
@@ -61,14 +70,15 @@ def busqueda_productos():
 	nombre = ''
 	for s, p, o in nprod:
 	  nombre = o.toPython()
-	  if filtradoDePrecio != "":
-	    nprec = g.triples((s,n.precio, None))
-	    for s, p, o in nprec:
-	      precio = o.toPython()
+	  precio = 0
+	  nprec = g.triples((s,n.precio, None))
+	  for s, p, o in nprec:
+	    precio = o.toPython()
+	    if filtradoDePrecio != "":
 	      if precioEnIntervalo(precio,filtradoDePrecio):
-		result.append(nombre)
-	  else:
-	    result.append(nombre)  
+		result.append({'nombre': nombre, 'precio': precio})
+	    else:
+	      result.append({'nombre': nombre, 'precio': precio})
     if params["Electronica"] == 1:
       if isCategorySelected == 0:
 	isCategorySelected = 1
@@ -78,14 +88,15 @@ def busqueda_productos():
 	nombre = ''
 	for s, p, o in nprod:
 	  nombre = o.toPython()
-	  if filtradoDePrecio != "":
-	    nprec = g.triples((s,n.precio, None))
-	    for s, p, o in nprec:
-	      precio = o.toPython()
+	  precio = 0
+	  nprec = g.triples((s,n.precio, None))
+	  for s, p, o in nprec:
+	    precio = o.toPython()
+	    if filtradoDePrecio != "":
 	      if precioEnIntervalo(precio,filtradoDePrecio):
-		result.append(nombre)
-	  else:
-	    result.append(nombre)  
+		result.append({'nombre': nombre, 'precio': precio})
+	    else:
+	      result.append({'nombre': nombre, 'precio': precio})  
     if params["Ropa"] == 1:
       if isCategorySelected == 0:
 	isCategorySelected = 1
@@ -95,18 +106,21 @@ def busqueda_productos():
 	nombre = ''
 	for s, p, o in nprod:
 	  nombre = o.toPython()
-	  if filtradoDePrecio != "":
-	    nprec = g.triples((s,n.precio, None))
-	    for s, p, o in nprec:
-	      precio = o.toPython()
+	  precio = 0
+	  nprec = g.triples((s,n.precio, None))
+	  for s, p, o in nprec:
+	    precio = o.toPython()
+	    if filtradoDePrecio != "":
 	      if precioEnIntervalo(precio,filtradoDePrecio):
-		result.append(nombre)
-	  else:
-	    result.append(nombre)  
+		result.append({'nombre': nombre, 'precio': precio})
+	    else:
+	      result.append({'nombre': nombre, 'precio': precio})
+	      
+      
   except Exception,e: 
     print str(e)
-    
-  return str(result)
+  jsondata = json.dumps(result)
+  return jsondata
 
 @app.route('/allproducts')
 
@@ -119,27 +133,63 @@ def all_products():
   except Exception,e:
     print str(e)
   result = []
-  n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
   try:
     prod = g.triples((None,RDF.type, n.Cosmetica))
     for s,p,o in prod:
       nprod = g.triples((s,n.nombre,None))
       for s, p, o in nprod:
-	result.append(str(o.toPython()))
+	nombre = o.toPython()
+	nprec = g.triples((s,n.precio, None))
+	precio = 0
+	for s, p, o in nprec:
+	  precio = o.toPython()
+	result.append({'nombre': nombre, 'precio': precio})
     prod = g.triples((None,RDF.type, n.Electronica))
     for s,p,o in prod:
       nprod = g.triples((s,n.nombre,None))
       for s, p, o in nprod:
-	result.append(str(o.toPython()))
+	nombre = o.toPython()
+	nprec = g.triples((s,n.precio, None))
+	precio = 0
+	for s, p, o in nprec:
+	  precio = o.toPython()
+	result.append({'nombre': nombre, 'precio': precio})
     prod = g.triples((None,RDF.type, n.Ropa))
     for s,p,o in prod:
       nprod = g.triples((s,n.nombre,None))
       for s, p, o in nprod:
-	result.append(str(o.toPython()))	  
+	nombre = o.toPython()
+	nprec = g.triples((s,n.precio, None))
+	precio = 0
+	for s, p, o in nprec:
+	  precio = o.toPython()
+	result.append({'nombre': nombre, 'precio': precio})	  
   except Exception,e: 
     print str(e)
-    
-  return str(result)
+  jsondata = json.dumps(result)
+  return jsondata
+
+
+@app.route('/pedidos')
+
+def pedidos():
+  
+  try:
+    params = json.loads(request.data)
+    g.parse('basededatos1.owl', format='xml')
+    compras = g.triples((None,RDF.type, n.Compra))
+    for s,p,o in compras:
+      print s,p,o
+      enviado = g.triples((s,n.EnviadorPor, None))
+      for s,p,o in enviado:
+	print s,p,o
+    return 'OK'
+  except Exception,e:
+    print str(e)
+    return 'Bad'
+
+
+
 
 
 if __name__ == '__main__':
