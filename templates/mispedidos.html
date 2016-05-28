@@ -5,37 +5,40 @@
          Realizar Productos
       </TITLE>
       <style>
-        <table>
-          <tr>
-            <td>
-              <b>Producto</b>
-            </td>
-            <td>
-              <b>Precio</b>
-            </td>
-          </tr>
-          {% for prod in products %}
-          <tr>
-            <td>
-              {{ prod['nombre'] }}
-            </td>
-            <td>
-              {{ prod['precio']}}€
-            </td>
-          <tr>
-          <tr>
-            <td>
-              <b>Total a pagar:</b>
-            </td>
-            <td>
-              €
-            </td>
-          </tr>
-            {% endfor %}
-        </table>
+
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
       </style>
    </HEAD>
 <BODY>
-  
+    <ul>
+      <li><a class="active" href="/catalog">Catalogo</a></li>
+      <li><a href="/busqueda">Busqueda</a></li>
+      <li><a href="/MisPedidos">Mis pedidos</a></li>
+      <li><a href="/Cesta">Cesta</a></li>
+  </ul>
 </BODY>
 </HTML> 

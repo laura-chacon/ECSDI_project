@@ -104,6 +104,10 @@ def pedidos():
 def printCesta():
   return render_template('cesta.html')
 
+@app.route('/MisPedidos')
+def printMisPedidos():
+  return render_template('mispedidos.html')
+
 
 @app.route('/addProductCesta')
 def  addProductCesta():

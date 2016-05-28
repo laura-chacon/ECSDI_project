@@ -2,7 +2,7 @@
 <HTML>
    <HEAD>
       <TITLE>
-         Buscar Productos
+         Catalogo
       </TITLE>
       <style>
         td {
@@ -10,7 +10,31 @@
         font-size: 15px;
         padding: 15px;
         }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
 
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
       </style>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
       <script>window.jQuery || document.write('<script src="{{
@@ -19,68 +43,56 @@
       <script type=text/javascript>
 	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
       </script>
-      
-   </HEAD>
-<BODY>
 
-<script type=text/javascript>
-
-  function añadirCesta(nombre, precio) {
-  $.getJSON($SCRIPT_ROOT + '/addProductCesta', {
+      <script type=text/javascript>
+        function añadirCesta(nombre, precio) {
+        $.getJSON($SCRIPT_ROOT + '/addProductCesta', {
         nombre: nombre,
         precio: precio,
         cantidad: $("input#quantity_"+nombre.toLowerCase().replace(/ /g,'')).val()
-      }, function(data) {
+        }, function(data) {
 	console.log(data);
         $("#nombreProducto").text(data);
-      });
-      return false;
-      };
-
-  
+        });
+        return false;
+        };
 </script>
-
-
-  <table>
-    <tr>
-      <td>
-        <b>Producto</b>
-      </td>
-      <td>
-        <b>Precio</b>
-      </td>
-      <td>
-	<b>Quantity</b>
-      </td>
-    </tr>
-    {% for prod in products %}
-    <tr>
-      <td>
-        {{ prod['nombre']}}
-      </td>
-      <td>
+   </HEAD>
+   <BODY>
+     <ul>
+       <li><a class="active" href="/catalog">Catalogo</a></li>
+       <li><a href="/busqueda">Busqueda</a></li>
+       <li><a href="/MisPedidos">Mis pedidos</a></li>
+       <li><a href="/Cesta">Cesta</a></li>
+     </ul>
+     <table>
+       <tr>
+         <td>
+           <b>Producto</b>
+         </td>
+         <td>
+           <b>Precio</b>
+         </td>
+         <td>
+	   <b>Quantity</b>
+         </td>
+       </tr>
+       {% for prod in products %}
+       <tr>
+         <td>
+           {{ prod['nombre']}}
+         </td>
+         <td>
         {{ prod['precio']}}€
-      </td>
-      <td>
-       <input id="quantity_{{prod['nombre'].lower().replace(" ", "")}}" type="number" min="0" max="99" value="0">
-      </td>
-      <td>
-        <button type="button" onclick="añadirCesta('{{ prod['nombre']}}', {{prod['precio']}})">Añadir a la cesta</button>
-      </td>
-    <tr>
-      {% endfor %}
-      
-    
-      
-      
-  </table>
-  
-  
-  
-  <h1>jQuery Example</h1>
-  <p><input type=text size=5 name=a> +
-  <input type=text size=5 name=b> =
-  <span id=result>?</span>
-  <p><a href=# id=calculate>calculate server side</a>
-</BODY>
+         </td>
+         <td>
+           <input id="quantity_{{prod['nombre'].lower().replace(" ", "")}}" type="number" min="0" max="99" value="0">
+         </td>
+         <td>
+           <button type="button" onclick="añadirCesta('{{ prod['nombre']}}', {{prod['precio']}})">Añadir a la cesta</button>
+         </td>
+       <tr>
+         {% endfor %}
+     </table>
+   </BODY>
 </HTML> 
