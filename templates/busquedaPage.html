@@ -4,22 +4,61 @@
       <TITLE>
          Buscar Productoss 
       </TITLE>
+      <style>
+        div {
+          font-size: 18px;
+        }
+        form {
+        margin-left: 35px;
+        margin-top: 35px;
+        }
+        td { 
+        padding: 15px;
+        }
+        div {
+        font-family: Verdana;
+        }
+        input[type=submit] {
+        font-family: Verdana;
+        font-size: 15px
+        }
+      </style>
    </HEAD>
 <BODY>
 	<form method="post" action="{{ url_for('getCategory') }}">
 	<div>
-			<label>Escoja una categoria:</label>
-	   		<input type="checkbox" name="Cosmetica" id="Cosmetica" > Cosmetica </input>
-	   		<input type="checkbox" name="Electronica" id="Electronica"> Electronica </input>
-	   		<input type="checkbox" name="Ropa" id="Ropa" > Ropa </input>
-	   		
+			<label>Escoja una categoria:</label></br>
+                        <table>
+                          <tr>
+                            <td>
+	   		      <input type="checkbox" name="Cosmetica" id="Cosmetica" > Cosmetica </input>
+                          </td>
+                            <td>
+	   		      <input type="checkbox" name="Electronica" id="Electronica"> Electronica </input>
+                            </td>
+                            <td>
+	   		      <input type="checkbox" name="Ropa" id="Ropa" > Ropa </input>
+                            </td>
+                          </table>
    	</div>
+        </br>
    	<div>
-   		<label> Escoja un precio: </label>
-   		<input type="checkbox" name="De0a30" id="De0a30" > 0€ a 30€ </input>
-		<input type="checkbox" name="De30A100" id="De30A100"> 30€ a 100€</input>
-		<input type="checkbox" name="MayorA100" id="MayorA100" > Mayor a 100€ </input>
+   		<label> Escoja un precio: </label></br>
+                <table>
+                  <tr>
+                    <td>
+   		      <input type="checkbox" name="De0a30" id="De0a30" > 0€ a 30€ </input>
+                    </td>
+                    <td>
+		      <input type="checkbox" name="De30A100" id="De30A100"> 30€ a 100€</input>
+                    </td>
+                    <td>
+		      <input type="checkbox" name="MayorA100" id="MayorA100" > Mayor a 100€ </input>
+                    </td>
+                  <tr>
+                </table>
    	</div>
+        </br>
 	<input type="submit" value="Enviar"></input>
    	</form>
 </BODY>
