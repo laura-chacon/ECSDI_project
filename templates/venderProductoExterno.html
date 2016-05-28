@@ -1,0 +1,110 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Acordar producto con tienda
+      </TITLE>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 15px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
+      </style>
+   </HEAD>
+<BODY>
+    <ul>
+      <li><a class="active" href="/venderProductoExterno.html">Acordar producto</a></li>
+      <li><a href="/gestionarPedidoExterno.html">Gestionar pedido</a></li>
+  </ul>
+    <table>
+      <tr>
+        <td>
+          Informacion sobre el producto a acordar con la tienda:
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Vendedor externo:
+        </td>
+        <td>
+          <select name="nombres">
+            {% for nombre_vendedor in nombre_vendedor_externo %}
+            <option value="nname">
+              {{nombre_vendedor['nombre']}}
+            </option>
+            {% endfor %}
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Producto:
+        </td>
+        <td>
+          <input type="text" name="producto">
+          </input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Precio:
+        </td>
+        <td>
+          <input type="text" name="precio">
+          </input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Cuenta Bancaria:
+        </td>
+        <td>
+          <input type="text" name="cuenta_bancaria">
+          </input>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button type="button" onclick="">Realizar peticion a la tienda</button>
+        </td>
+      </tr>
+    </table>
+</BODY>
+</HTML> 
