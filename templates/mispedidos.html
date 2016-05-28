@@ -1,0 +1,41 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Realizar Productos
+      </TITLE>
+      <style>
+        <table>
+          <tr>
+            <td>
+              <b>Producto</b>
+            </td>
+            <td>
+              <b>Precio</b>
+            </td>
+          </tr>
+          {% for prod in products %}
+          <tr>
+            <td>
+              {{ prod['nombre'] }}
+            </td>
+            <td>
+              {{ prod['precio']}}€
+            </td>
+          <tr>
+          <tr>
+            <td>
+              <b>Total a pagar:</b>
+            </td>
+            <td>
+              €
+            </td>
+          </tr>
+            {% endfor %}
+        </table>
+      </style>
+   </HEAD>
+<BODY>
+  
+</BODY>
+</HTML> 
