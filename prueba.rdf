@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns="http://www.owl-ontologies.com/ECSDI/projectX.owl#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:nodeID="N80f530c8c5d642439ea358f1748b0ccf">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#BuscarProductos"/>
+    <rdf:rest rdf:nodeID="Nb881f618d61f46b3a97d511ea4707950"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#En">
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#PerteneceA">
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarValoracion">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#importe">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarPago"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Actor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#EsTarjetaCredito">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarPago"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Televisor">
+    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">324</precio>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Electronica"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Televisor</nombre>
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
+    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendidoPor">
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N356efac3d4074a3a8092025d0725c9db">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="Ndf6de0b7a4b54e628e47cf2e0c15f972"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4f8b0e26999d47c2ae46df73a19d7794">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarDevolucion"/>
+    <rdf:rest rdf:nodeID="N88f806c273ad4e75867d03f194925957"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#BaseDeMaquillaje">
+    <VendidoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Meritxell"/>
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">maquillaje</descripcion>
+    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">15</precio>
+    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoMadrid"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Base de maquillaje</nombre>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Cosmetica"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#BuscarProductos_1">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#BuscarProductos"/>
+    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Restriccion_1"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Cosmetica">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#EnviarPedido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#acuerdaCon">
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#AcordarProductoVendedorExterno"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb881f618d61f46b3a97d511ea4707950">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N244fc464f0b448769cb9f7e1e6b263bc">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdf:rest rdf:nodeID="N94b3e98ff5164b4fbeea55a2f1366b3e"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N94b3e98ff5164b4fbeea55a2f1366b3e">
+    <rdf:rest rdf:nodeID="N739cc9c18eed48908bfccd717ec53ace"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nfcf6ae9e4e744ba18557155378459de1">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
+    <rdf:rest rdf:nodeID="Ne2b6e959aee7467f8d0979f76defb703"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther">
+    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Maria 65</direccion>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45678</cuentaBancaria>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Esther</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N4ba91ee289ac4fed95ebf1c170af579d">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_1">
+    <EnviadorPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Fedex"/>
+    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
+    <estadoPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></estadoPedido>
+    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string">123</numeroPedido>
+    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#BaseDeMaquillaje"/>
+    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Televisor"/>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
+    <estadoPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string">enviado</estadoPedido>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#peso">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#EnviarPedido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#EnviadorPor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#InverseFunctionalProperty"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#MRW">
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MRW</nombre>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N806d7c5094b94f2b9037df0a6d742255">
+    <rdf:rest rdf:nodeID="N42f652e5c13e42d0819b1e75aa17cb36"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Restriccion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Pepe">
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43242342</cuentaBancaria>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pepe</nombre>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista_8">
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_2">
+    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Camiseta"/>
+    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1234</numeroPedido>
+    <estadoPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string">enviado</estadoPedido>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
+    <EnviadorPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#MRW"/>
+    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd3b65c147e3c4ffbb3262b434e3de4c8">
+    <rdf:rest rdf:nodeID="Nb717cb4d2d794d20b20ea3af25c0a06d"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#EnviarPedido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#restriccion">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Restriccion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#meEncargoDelPago">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#AcordarProductoVendedorExterno"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#usuario_prueba">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+    <nombre>Esther2</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Camiseta">
+    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona"/>
+    <VendidoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Pepe"/>
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Ropa"/>
+    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">23</precio>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camiseta</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Sobre">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdfs:domain rdf:nodeID="N7be518cd001c4659835d63d510a70d60"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#AcordarProductoVendedorExterno">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N9654a795069647d3824e61e1b4d64142">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="N244fc464f0b448769cb9f7e1e6b263bc"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N681fd796788b4e45bce39040659eff50">
+    <owl:unionOf rdf:nodeID="Nd3b65c147e3c4ffbb3262b434e3de4c8"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Restriccion_1">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Restriccion"/>
+    <restriccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">verde</restriccion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#comentario">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarValoracion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarCompra">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#quiereVender">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#AcordarProductoVendedorExterno"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Susan">
+    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Jordi 5</direccion>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6545213</cuentaBancaria>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></nombre>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Cosmetica_4">
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#nombre">
+    <rdfs:domain rdf:nodeID="N9654a795069647d3824e61e1b4d64142"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N438ca30325dc4ba5bc03aef9d17d0d35">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Restriccion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_1">
+    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Camiseta"/>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
+    <EnviadorPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#MRW"/>
+    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
+    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1234</numeroPedido>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Actor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombre>
+    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Jose 4</direccion>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12345</cuentaBancaria>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2c2f2bc9f9364cbf94c4466e6999dd44">
+    <rdf:rest rdf:nodeID="N66c1bea646174dc5a751a1cc7fecb72c"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarCompra"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#numeroPedido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:nodeID="N681fd796788b4e45bce39040659eff50"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#descripcion">
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N88f806c273ad4e75867d03f194925957">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarCompra"/>
+    <rdf:rest rdf:nodeID="N438ca30325dc4ba5bc03aef9d17d0d35"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centro Logistico Barcelona</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarDevolucion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N2503c25f1f0442ba895697824ca6d0ef">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="N2c2f2bc9f9364cbf94c4466e6999dd44"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoMadrid">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centro Logistico Madrid</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Electronica">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Na97488fcdb9e4447b590b5e5c4ee650a">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="N806d7c5094b94f2b9037df0a6d742255"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarPago">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#cuentaBancaria">
+    <rdfs:domain rdf:nodeID="N2503c25f1f0442ba895697824ca6d0ef"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Ropa">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nd06ebbf200e747e3939198b1f7644118">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ne2b6e959aee7467f8d0979f76defb703">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N13c13afd061a40e79460e084e8467191">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:unionOf rdf:nodeID="N80f530c8c5d642439ea358f1748b0ccf"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#precio">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#numPagoOrigen">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarPago"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#puntuacion">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarValoracion"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N66c1bea646174dc5a751a1cc7fecb72c">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+    <rdf:rest rdf:nodeID="N4ba91ee289ac4fed95ebf1c170af579d"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N7be518cd001c4659835d63d510a70d60">
+    <owl:unionOf rdf:nodeID="Nada96357014e45629202d31b1a5efd66"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#BuscarProductos">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Selecciona">
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarCompra"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Actor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#meEncargoDelEnvio">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#AcordarProductoVendedorExterno"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#direccion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:nodeID="N356efac3d4074a3a8092025d0725c9db"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Contiene">
+    <rdfs:domain rdf:nodeID="N13c13afd061a40e79460e084e8467191"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:nodeID="Na97488fcdb9e4447b590b5e5c4ee650a"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#estadoPedido">
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_17">
+    <estadoPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Enviado</estadoPedido>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#HechoPor">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+    <rdfs:range rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#numPagoDestino">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarPago"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Meritxell">
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meritxell</nombre>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></cuentaBancaria>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nb717cb4d2d794d20b20ea3af25c0a06d">
+    <rdf:rest rdf:nodeID="Nd06ebbf200e747e3939198b1f7644118"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarDevolucion"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N42e03ed5e409420e93b349ff257484ba">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarValoracion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Actor"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Nada96357014e45629202d31b1a5efd66">
+    <rdf:rest rdf:nodeID="N42e03ed5e409420e93b349ff257484ba"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarRecomendacion"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#RealizarRecomendacion">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Accion"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N42f652e5c13e42d0819b1e75aa17cb36">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Producto"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="N739cc9c18eed48908bfccd717ec53ace">
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+    <rdf:rest rdf:nodeID="Nfcf6ae9e4e744ba18557155378459de1"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="Ndf6de0b7a4b54e628e47cf2e0c15f972">
+    <rdf:rest rdf:nodeID="N4f8b0e26999d47c2ae46df73a19d7794"/>
+    <rdf:first rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#EnviarPedido"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra">
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Actor"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Fedex">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fedex</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Pedido">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+</rdf:RDF>

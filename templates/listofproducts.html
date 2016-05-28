@@ -2,7 +2,7 @@
 <HTML>
    <HEAD>
       <TITLE>
-         Buscar Productoss 
+         Buscar Productos
       </TITLE>
       <style>
         td {
@@ -12,8 +12,35 @@
         }
 
       </style>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{
+	url_for('static', filename='jquery.js') }}">\x3C/script>') 
+      </script>
+      <script type=text/javascript>
+	$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      </script>
+      
    </HEAD>
 <BODY>
+
+<script type=text/javascript>
+
+  function añadirCesta(nombre, precio) {
+  $.getJSON($SCRIPT_ROOT + '/addProductCesta', {
+        nombre: nombre,
+        precio: precio,
+        cantidad: $("input#quantity_"+nombre.toLowerCase().replace(/ /g,'')).val()
+      }, function(data) {
+	console.log(data);
+        $("#nombreProducto").text(data);
+      });
+      return false;
+      };
+
+  
+</script>
+
+
   <table>
     <tr>
       <td>
@@ -22,20 +49,38 @@
       <td>
         <b>Precio</b>
       </td>
+      <td>
+	<b>Quantity</b>
+      </td>
     </tr>
     {% for prod in products %}
     <tr>
       <td>
-        {{ prod['nombre'] }}
+        {{ prod['nombre']}}
       </td>
       <td>
         {{ prod['precio']}}€
       </td>
       <td>
-        <button type="button">Añadir a la cesta</button>
+       <input id="quantity_{{prod['nombre'].lower().replace(" ", "")}}" type="number" min="0" max="99" value="0">
+      </td>
+      <td>
+        <button type="button" onclick="añadirCesta('{{ prod['nombre']}}', {{prod['precio']}})">Añadir a la cesta</button>
       </td>
     <tr>
       {% endfor %}
+      
+    
+      
+      
   </table>
+  
+  
+  
+  <h1>jQuery Example</h1>
+  <p><input type=text size=5 name=a> +
+  <input type=text size=5 name=b> =
+  <span id=result>?</span>
+  <p><a href=# id=calculate>calculate server side</a>
 </BODY>
 </HTML> 

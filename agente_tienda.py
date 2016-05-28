@@ -40,7 +40,7 @@ def obtenerNombre(sujeto):
 def busqueda_productos():
   try:
     params = json.loads(request.data)
-    g.parse('basededatos1.owl', format='xml')
+    g.parse('prueba.rdf', format='xml')
   except Exception,e:
     print str(e)
   result = []
@@ -115,6 +115,13 @@ def busqueda_productos():
   except Exception,e: 
     print str(e)
   jsondata = json.dumps(result)
+  
+  usuario = n.usuario_prueba
+  nombre = Literal('Esther2')
+  rdftype = n.Usuario
+  g.add((usuario, RDF.type, rdftype))
+  g.add((usuario,n.nombre,nombre))
+  g.serialize('prueba.rdf')
   return jsondata
 
 @app.route('/allproducts')
@@ -124,7 +131,7 @@ def all_products():
   params = request.args.get('categoria')
   g = Graph()
   try:
-    g.parse('basededatos1.owl', format='xml')
+    g.parse('prueba.rdf', format='xml')
   except Exception,e:
     print str(e)
   result = []
@@ -171,7 +178,7 @@ def all_products():
 def pedidos():
   
   try:
-    g.parse('basededatos1.owl', format='xml')
+    g.parse('prueba.rdf', format='xml')
     compras = g.triples((None,RDF.type, n.Compra))
     for s,p,o in compras:
       print s,p,o

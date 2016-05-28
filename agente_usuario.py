@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, jsonify, render_template, request, url_for
 import requests
 import json
 from rdflib import Graph
@@ -8,6 +8,32 @@ from rdflib.namespace import XSD
 import rdflib
 
 app = Flask(__name__)
+
+
+Cesta = []
+
+
+
+def existProductInCesta(nombre):
+  for p in Cesta:
+    if p['nombre'] == nombre:
+      return True
+  return False
+
+def addProduct(nombre,cantidad,precio):
+  for p in Cesta:
+    if p['nombre'] == nombre:
+      p['subtotal'] = cantidad*precio
+      break
+    
+def newProduct(nombre,cantidad,precio):
+  try:
+    producto={"nombre": nombre, "subtotal": precio*cantidad}
+    Cesta.append(producto)
+  except Exception,e:
+    print e
+  
+      
 
 @app.route('/busqueda')
 
@@ -73,6 +99,24 @@ def getCategory():
 def pedidos():
   r = requests.get('http://127.0.0.1:9001/pedidos')
   return r.content
+
+
+@app.route('/addProductCesta')
+def  addProductCesta():
+  
+  try:
+    nombre = request.args.get("nombre")
+    precio = request.args.get("precio", 0, type=int)
+    cantidad = request.args.get("cantidad", 0, type=int)
+    if existProductInCesta(nombre):
+      addProduct(nombre,precio,cantidad)
+    else :
+      newProduct(nombre,precio,cantidad)
+      
+  except Exception, e:
+    print str(e)
+    return 'Bad'
+  return 'OK'
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)
