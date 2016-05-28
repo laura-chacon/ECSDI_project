@@ -100,6 +100,10 @@ def pedidos():
   r = requests.get('http://127.0.0.1:9001/pedidos')
   return r.content
 
+@app.route('/Cesta')
+def printCesta():
+  return render_template('cesta.html')
+
 
 @app.route('/addProductCesta')
 def  addProductCesta():
