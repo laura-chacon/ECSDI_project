@@ -4,10 +4,38 @@
       <TITLE>
          Buscar Productoss 
       </TITLE>
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 15px;
+        }
+
+      </style>
    </HEAD>
 <BODY>
-	{% for prod in products %}
-	<p>{{ prod['nombre'] }} {{ prod['precio']}}€</p>
-	{% endfor %}
+  <table>
+    <tr>
+      <td>
+        <b>Producto</b>
+      </td>
+      <td>
+        <b>Precio</b>
+      </td>
+    </tr>
+    {% for prod in products %}
+    <tr>
+      <td>
+        {{ prod['nombre'] }}
+      </td>
+      <td>
+        {{ prod['precio']}}€
+      </td>
+      <td>
+        <button type="button">Añadir a la cesta</button>
+      </td>
+    <tr>
+      {% endfor %}
+  </table>
 </BODY>
 </HTML> 
