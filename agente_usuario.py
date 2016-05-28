@@ -32,32 +32,49 @@ def busqueda():
 
 def catalog():
   r = requests.get('http://127.0.0.1:9001/allproducts')
-  return str(r.content)
+  return render_template('listofproducts.html', products=json.loads(r.content))
 
 @app.route('/getCategory', methods=['POST'])
 def getCategory():
   peticion = {}
+  filtroSeleccionado = 0
   peticion = {"Categoria": {"Ropa": 0, "Electronica": 0, "Cosmetica": 0}, "Precio": {"De0a30": 0, "De30A100": 0, "MayorA100": 0}}
   try:
     if ('Electronica' in request.form):
+      filtroSeleccionado = 1
       peticion["Categoria"]["Electronica"] = 1
     if ('Ropa' in request.form):
       peticion["Categoria"]["Ropa"] = 1
+      filtroSeleccionado = 1
     if ('Cosmetica' in request.form):      
       peticion["Categoria"]["Cosmetica"] = 1
-    jsondata = json.dumps(peticion)
+      filtroSeleccionado = 1
     if ('De0a30' in request.form):
       peticion["Precio"]["De0a30"] = 1
+      filtroSeleccionado = 1
     if ('De30A100' in request.form):
       peticion["Precio"]["De30A100"] = 1
+      filtroSeleccionado = 1
     if ('MayorA100' in request.form):      
       peticion["Precio"]["MayorA100"] = 1
-    jsondata = json.dumps(peticion)
-    r = requests.get('http://127.0.0.1:9001/busqueda_productos', data=jsondata)
-    return str(r.content)
+      filtroSeleccionado = 1
+    if filtroSeleccionado == 1: 
+      jsondata = json.dumps(peticion)
+      r = requests.get('http://127.0.0.1:9001/busqueda_productos', data=jsondata)
+    else:
+      r = requests.get('http://127.0.0.1:9001/allproducts')
+    return render_template('listofproducts.html', products=json.loads(r.content))
   except Exception,e:
     print str(e)
     return 'Bad'
 
+@app.route('/pedidos')
+
+def pedidos():
+  r = requests.get('http://127.0.0.1:9001/pedidos')
+  return r.content
+
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)
+  
+ 
