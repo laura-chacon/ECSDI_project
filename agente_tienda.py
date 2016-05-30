@@ -25,7 +25,7 @@ def precioEnIntervalo(precio, filtradoDePrecio):
       return True
   else:
     return False
-  
+
 def obtenerNombre(sujeto):
   nprod = g.triples((sujeto,n.nombre,None))
   nombre = ''
@@ -33,10 +33,7 @@ def obtenerNombre(sujeto):
     nombre = o.toPython()
   return nombre
 
-
-
 @app.route('/busqueda_productos')
-
 def busqueda_productos():
   try:
     params = json.loads(request.data)
@@ -45,18 +42,18 @@ def busqueda_productos():
     print str(e)
   result = []
   isCategorySelected = 0
-  
+ 
   #Filtrado de precio
   precioFiltrado = params["Precio"]
   filtradoDePrecio = ""
-  
+
   if precioFiltrado["De0a30"] == 1:
     filtradoDePrecio = "De0a30"
   if precioFiltrado["De30A100"] == 1:
     filtradoDePrecio = "De30A100"
   if precioFiltrado["MayorA100"] == 1:
     filtradoDePrecio = "MayorA100"
-  
+
   params = params['Categoria']
   if params["Cosmetica"] == 1 or params["Electronica"] == 1 or params["Ropa"] == 1:
     isCategorySelected = 1
@@ -110,12 +107,10 @@ def busqueda_productos():
 		result.append({'nombre': nombre, 'precio': precio})
 	    else:
 	      result.append({'nombre': nombre, 'precio': precio})
-	      
       #No hay categoria 
   except Exception,e: 
     print str(e)
   jsondata = json.dumps(result)
-  
   usuario = n.usuario_prueba
   nombre = Literal('Esther2')
   rdftype = n.Usuario
@@ -125,9 +120,7 @@ def busqueda_productos():
   return jsondata
 
 @app.route('/allproducts')
-
 def all_products():
-  
   params = request.args.get('categoria')
   g = Graph()
   try:
@@ -166,17 +159,14 @@ def all_products():
 	for s, p, o in nprec:
 	  precio = o.toPython()
 	result.append({'nombre': nombre, 'precio': precio})
-	
-  except Exception,e: 
+  except Exception,e:
     print str(e)
   jsondata = json.dumps(result)
   return jsondata
 
 
 @app.route('/pedidos')
-
 def pedidos():
-  
   try:
     g.parse('prueba.rdf', format='xml')
     compras = g.triples((None,RDF.type, n.Compra))
@@ -194,15 +184,16 @@ def pedidos():
 	for s,p,o in producto:
 	  print "Nombre"
 	  print o
-      
     return 'OK'
   except Exception,e:
     print str(e)
     return 'Bad'
 
 
-
-
+@app.route('/acordarProductoExterno', methods=['POST'])
+def acordarProductoExterno():
+  params = json.dumps(request.form)
+  return render_template('acuerdoProductoExterno.html')
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)

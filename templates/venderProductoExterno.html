@@ -53,58 +53,65 @@
       <li><a class="active" href="/venderProductoExterno.html">Acordar producto</a></li>
       <li><a href="/gestionarPedidoExterno.html">Gestionar pedido</a></li>
   </ul>
-    <table>
-      <tr>
-        <td>
-          Informacion sobre el producto a acordar con la tienda:
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Vendedor externo:
-        </td>
-        <td>
-          <select name="nombres">
-            {% for nombre_vendedor in nombre_vendedor_externo %}
-            <option value="nname">
-              {{nombre_vendedor['nombre']}}
-            </option>
-            {% endfor %}
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Producto:
-        </td>
-        <td>
-          <input type="text" name="producto">
+    <form method="post" action="{{url_for('realizarPeticion')}}">
+      <table>
+        <tr>
+          <td>
+            Informacion sobre el producto a acordar con la tienda:
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Vendedor externo:
+          </td>
+          <td>
+            <select name="nombres_vendedor">
+              {% for nombre_vendedor in nombre_vendedor_externo %}
+              <option value="{{nombre_vendedor['nombre']}}">
+                {{nombre_vendedor['nombre']}}
+              </option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Producto:
+          </td>
+          <td>
+            <input type="text" name="producto">
           </input>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Precio:
-        </td>
-        <td>
-          <input type="text" name="precio">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Precio:
+          </td>
+          <td>
+            <input type="text" name="precio">
           </input>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          Cuenta Bancaria:
-        </td>
-        <td>
-          <input type="text" name="cuenta_bancaria">
-          </input>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <button type="button" onclick="">Realizar peticion a la tienda</button>
-        </td>
-      </tr>
-    </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Cuenta Bancaria:
+          </td>
+          <td>
+            <select name="cuentas">
+              {% for cuenta in nombre_vendedor_externo %}
+              <option value="{{cuenta['cuentaBancaria']}}">
+                {{cuenta['cuentaBancaria']}}
+              </option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button type="submit" value="Enviar">Realizar peticion a la tienda</button>
+          </td>
+        </tr>
+      </table>
+    </form>
 </BODY>
 </HTML> 

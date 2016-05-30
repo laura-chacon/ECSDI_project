@@ -25,8 +25,27 @@ def venderProductoExterno():
             nombre_vendedor_externo = g.triples((s, n.nombre, None))
             for s,p,o in nombre_vendedor_externo:
                 nombre = o.toPython()
-                result.append({'nombre': nombre})
+                cuenta = g.value(s, n.cuentaBancaria)
+                result.append({'nombre': nombre, 'cuentaBancaria': cuenta})
         return render_template('venderProductoExterno.html', nombre_vendedor_externo=result)
+    except Exception, e:
+        print str(e)
+
+@app.route('/realizarPeticion', methods=['POST'])
+def realizarPeticion():
+    peticion = {}
+    try:
+        nombre_vendedor = request.form["nombres_vendedor"]
+        producto = request.form["producto"]
+        cuenta = request.form["cuentas"]
+        precio = request.form["precio"]
+        peticion = {"nombre_vendedor": nombre_vendedor,
+                    "producto": producto,
+                    "precio": precio,
+                    "cuenta": cuenta
+        }
+        r = requests.post('http://127.0.0.1:9001/acordarProductoExterno', data=peticion)
+        return "peticion done"
     except Exception, e:
         print str(e)
 
