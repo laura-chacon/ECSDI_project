@@ -44,7 +44,7 @@ def realizarPeticion():
                     "precio": precio,
                     "cuenta": cuenta
         }
-        r = requests.post('http://127.0.0.1:9001/acordarProductoExterno', data=peticion)
+        r = requests.post('http://127.0.0.1:9001/acordarProductoExterno', data=json.dumps(peticion))
         return "peticion done"
     except Exception, e:
         print str(e)

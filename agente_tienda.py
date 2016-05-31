@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template, url_for
 from rdflib import Graph
 from rdflib import URIRef, BNode, Literal, Namespace, RDF
 from rdflib.namespace import FOAF
@@ -10,8 +10,11 @@ app = Flask(__name__)
 
 g = Graph()
 n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
-
-
+peticion = {"nombre_vendedor": None,
+            "producto": None,
+            "precio": None,
+            "cuenta": None
+          }
 
 def precioEnIntervalo(precio, filtradoDePrecio):
   if filtradoDePrecio == "De0a30":
@@ -190,10 +193,26 @@ def pedidos():
     return 'Bad'
 
 
-@app.route('/acordarProductoExterno', methods=['POST'])
+@app.route('/acordarProductoExterno', methods=['GET', 'POST'])
 def acordarProductoExterno():
-  params = json.dumps(request.form)
-  return render_template('acuerdoProductoExterno.html')
+  global peticion
+  if request.method == 'POST':
+    peticion = json.loads(request.data)
+    return "Info acuerdo recibido"
+  if request.method == 'GET':
+    if peticion['nombre_vendedor'] == None:
+      return "No hay peticiones de vendedores externos"
+    else:
+      try:
+        print type(peticion)
+        return render_template('acuerdoProductoExterno.html', params=peticion)
+      except Exception, e:
+        print str(e)
+
+@app.route('/productoExternoAceptado', methods=['POST'])
+def productoExternoAceptado():
+  
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
+acuerdoVendedorExterno = {}
