@@ -13,7 +13,8 @@ n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
 peticion = {"nombre_vendedor": None,
             "producto": None,
             "precio": None,
-            "cuenta": None
+            "cuenta": None,
+            "categoria": None
           }
 
 def precioEnIntervalo(precio, filtradoDePrecio):
@@ -204,14 +205,14 @@ def acordarProductoExterno():
       return "No hay peticiones de vendedores externos"
     else:
       try:
-        print type(peticion)
         return render_template('acuerdoProductoExterno.html', params=peticion)
       except Exception, e:
         print str(e)
 
 @app.route('/productoExternoAceptado', methods=['POST'])
 def productoExternoAceptado():
-  
+  global peticion
+  return "Hola"
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)

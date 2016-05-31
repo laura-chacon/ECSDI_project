@@ -39,10 +39,12 @@ def realizarPeticion():
         producto = request.form["producto"]
         cuenta = request.form["cuentas"]
         precio = request.form["precio"]
+        categoria = request.form["categoria"]
         peticion = {"nombre_vendedor": nombre_vendedor,
                     "producto": producto,
                     "precio": precio,
-                    "cuenta": cuenta
+                    "cuenta": cuenta,
+                    "categoria": categoria
         }
         r = requests.post('http://127.0.0.1:9001/acordarProductoExterno', data=json.dumps(peticion))
         return "peticion done"
