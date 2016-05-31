@@ -5,6 +5,7 @@ from rdflib.namespace import FOAF
 from rdflib.namespace import XSD
 import json
 import rdflib
+import requests
 
 app = Flask(__name__)
 
@@ -222,7 +223,9 @@ def productoExternoAceptado():
     g.add((producto, RDF.type, categoria))
     g.add((producto, n.precio, precio))
     g.add((producto, n.VendidoPor, vendedor_externo))
+    g.add((producto, n.nombre, Literal(str(peticion['producto']))))
     g.serialize('prueba.rdf')
+    return "Peticion aceptada y producto anadido al catalogo"
   except Exception, e:
     print str(e)
 
