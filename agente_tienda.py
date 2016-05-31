@@ -211,8 +211,21 @@ def acordarProductoExterno():
 
 @app.route('/productoExternoAceptado', methods=['POST'])
 def productoExternoAceptado():
+  g.parse('prueba.rdf', format='xml')
   global peticion
-  return "Hola"
+  producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + str(peticion['producto']))
+  categoria = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + str(peticion['categoria']))
+  precio = Literal(str(peticion['precio']), datatype=XSD.integer)
+  nombre_vendedor = "VendedorExterno_" + str(peticion['nombre_vendedor'])
+  vendedor_externo = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombre_vendedor)
+  try:
+    g.add((producto, RDF.type, categoria))
+    g.add((producto, n.precio, precio))
+    g.add((producto, n.VendidoPor, vendedor_externo))
+    g.serialize('prueba.rdf')
+  except Exception, e:
+    print str(e)
+
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
