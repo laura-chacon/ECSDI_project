@@ -12,7 +12,8 @@ app = Flask(__name__)
 
 Cesta = []
 
-
+g = Graph()
+n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
 
 def existProductInCesta(nombre):
   for p in Cesta:
@@ -20,20 +21,36 @@ def existProductInCesta(nombre):
       return True
   return False
 
-def addProduct(nombre,cantidad,precio):
+def addProduct(nombre,precio,cantidad):
   for p in Cesta:
     if p['nombre'] == nombre:
+      p['cantidad'] == cantidad;
       p['subtotal'] = cantidad*precio
       break
+
+def getTotalCesta():
+  total = 0
+  for p in Cesta:
+    print 'voy a sumar'
+    print str(total)
+    print p['subtotal']
+    total = total + p['subtotal']
+  return total 
     
-def newProduct(nombre,cantidad,precio):
+def newProduct(nombre,precio,cantidad):
   try:
-    producto={"nombre": nombre, "subtotal": precio*cantidad}
+    producto={"nombre": nombre, "cantidad":cantidad,"subtotal": precio*cantidad}
     Cesta.append(producto)
   except Exception,e:
     print e
   
-      
+def deleteProduct(nombre,cantidad,subtotal):
+  try:
+    producto={"nombre": nombre, "cantidad":cantidad,"subtotal": subtotal}
+    Cesta.remove(producto)
+    print Cesta
+  except Exception,e:
+    print e      
 
 @app.route('/busqueda')
 
@@ -102,7 +119,23 @@ def pedidos():
 
 @app.route('/Cesta')
 def printCesta():
-  return render_template('cesta.html')
+  try:
+    result = []
+    g.parse('prueba.rdf', format='xml')
+    allUsers = g.triples((None, RDF.type, n.Usuario))
+    for s,p,o in allUsers:
+      nombre_user = g.triples((s, n.nombre, None))
+      for s,p,o in nombre_user:
+        nombre = o.toPython()
+        cuenta = g.value(s, n.cuentaBancaria)
+        direccion = g.value(s, n.direccion)
+        result.append({'nombre': nombre, 'cuentaBancaria': cuenta, 'direccion': direccion})
+    totalprecio = getTotalCesta()  
+    print totalprecio
+    return render_template('cesta.html', productos=Cesta , dusers=result, total=totalprecio)
+  except Exception, e:
+    print str(e)
+    return 'Bad'
 
 @app.route('/MisPedidos')
 def printMisPedidos():
@@ -121,6 +154,43 @@ def  addProductCesta():
     else :
       newProduct(nombre,precio,cantidad)
       
+  except Exception, e:
+    print str(e)
+    return 'Bad'
+  return 'OK'
+
+@app.route('/deleteProductCesta')
+def  deleteProductCesta():
+  print 'hola que taaaaaal'
+  try:
+    nombre = request.args.get("nombre")
+    cantidad = request.args.get("cantidad", 0, type=int)
+    subtotal = request.args.get("subtotal", 0, type=int)
+    if existProductInCesta(nombre):
+      deleteProduct(nombre,cantidad,subtotal)
+      print 'El producto' + nombre + 'se va a eliminar'
+    else :
+      return 'This product doesnt exist'
+      
+  except Exception, e:
+    print str(e)
+    return 'Bad'
+  return 'OK'
+
+
+@app.route('/realizarPedido', methods=['POST'])
+def  realizarPedido():
+  try:
+    print 'La cesta voy a hacerla en json'
+    '''print json.loads(Cesta)'''
+    usuario = request.form["nombres_usuarios"]
+    cuenta = request.form["cuentas"]
+    direc = request.form["direcciones"]
+    infocomprador = {"usuario_nombre": usuario,
+                    "cuenta": cuenta,
+                    "direccion": direc
+        }
+    r = requests.post('http://127.0.0.1:9001/realizarPedido', data=json.dumps(infocomprador))      
   except Exception, e:
     print str(e)
     return 'Bad'

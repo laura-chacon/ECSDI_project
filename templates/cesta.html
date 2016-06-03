@@ -32,6 +32,42 @@
         background-color: #111;
         }
       </style>
+      
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{
+  url_for('static', filename='jquery.js') }}">\x3C/script>') 
+      </script>
+      <script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      </script>
+
+      <script type=text/javascript>
+        function eliminarCesta(nombre, cantidad, subtotal) {
+        $.getJSON($SCRIPT_ROOT + '/deleteProductCesta', {
+        nombre: nombre,
+        cantidad: cantidad,
+        subtotal: subtotal
+        }, function(data) {
+  console.log(data);
+        $("#nombreProducto").text(data);
+        });
+        return false;
+        };
+
+
+     //   function realizarPedido() {
+      //  $.getJSON($SCRIPT_ROOT + '/realizarPedido', {
+      //    nombreusuario = $("#")
+        
+    //    }, function(data) {
+  //console.log(data);
+        
+        //});
+        //return false;
+        //};
+</script>
+      
+      
    </HEAD>
 <BODY>
     <ul>
@@ -40,4 +76,115 @@
       <li><a href="/MisPedidos">Mis pedidos</a></li>
       <li><a href="/Cesta">Cesta</a></li>
     </ul>
+     <table>
+       <tr>
+         <td>
+           <b>Producto</b>
+         </td>
+         <td>
+           <b>Cantidad</b>
+         </td>
+         <td>
+           <b>Subtotal</b>
+         </td>
+      
+       </tr>
+       {% for prod in productos %}
+       <tr>
+         <td>
+           {{ prod['nombre']}}
+         </td>
+          <td>
+        x{{ prod['cantidad']}}
+         </td>
+         
+         <td>
+        {{ prod['subtotal']}}€
+         </td>
+         <td>
+           <button type="button" onclick="eliminarCesta('{{ prod['nombre']}}', {{ prod['cantidad']}}, {{ prod['subtotal']}})">Eliminar de la cesta</button>
+         </td>
+                  
+          
+       <tr>
+
+         {% endfor %}
+        <tr>
+            <td>
+              <b> <label>TOTAL:</label> </b>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+          <td>
+              <label> {{ total }}€ </label>
+            </td>
+        </tr>
+    <form method="post" action="{{url_for('realizarPedido')}}">
+        <tr>
+          <td>
+            <b> DATOS </b>
+          </td>
+          
+        </tr>
+        <tr>
+          <td>
+          <label> Usuario: </label>
+          </td>
+          <td>
+            <select name="nombres_usuarios">
+              {% for user in dusers %}
+              <option value="{{user['nombre']}}">
+                {{user['nombre']}}
+              </option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+
+        </tr>
+        <tr>
+          <td>
+          <label> Cuenta Bancaria: </label>
+          </td>
+          <td>
+            <select name="cuentas">
+              {% for cuenta in dusers %}
+              <option value="{{cuenta['cuentaBancaria']}}">
+                {{cuenta['cuentaBancaria']}}
+              </option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        </tr>
+        <tr>
+
+
+        </tr>
+        <tr>
+          <td>
+          <label> Direccion: </label>
+          </td>
+          <td>
+            <select name="direcciones">
+              {% for dire in dusers %}
+              <option value="{{dire['direccion']}}">
+                {{dire['direccion']}}
+              </option>
+              {% endfor %}
+            </select>
+          </td>
+        </tr>
+        </tr>
+        <tr>          
+
+          <td>
+             <button type="submit" value="Enviar" >REALIZAR PEDIDO</button>
+          </td>
+        </tr>
+
+    </form>
+     </table>
 </BODY></HTML> 

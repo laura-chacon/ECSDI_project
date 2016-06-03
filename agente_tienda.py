@@ -17,6 +17,8 @@ peticion = {"nombre_vendedor": None,
             "cuenta": None,
             "categoria": None
           }
+'''variable global para asignar numero de pedido'''
+numpedido = 1000
 
 def precioEnIntervalo(precio, filtradoDePrecio):
   if filtradoDePrecio == "De0a30":
@@ -212,6 +214,7 @@ def acordarProductoExterno():
 
 @app.route('/productoExternoAceptado', methods=['POST'])
 def productoExternoAceptado():
+  print 'HOLAAAA'
   g.parse('prueba.rdf', format='xml')
   global peticion
   producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + str(peticion['producto']))
@@ -229,6 +232,36 @@ def productoExternoAceptado():
   except Exception, e:
     print str(e)
 
+@app.route('/realizarPedido', methods=['POST'])
+def realizarPedido():
+    try:
+      print 'ESTOY EN REALIZAR PEDIDO'
+      '''Aqui obtengo la info del comprador'''
+      info = json.loads(request.data)
+      nombreComprador = "Usuario_" + info['usuario_nombre']
+      print nombreComprador
+      cuentaComprador = info['cuenta']
+      direccionComprador = info['direccion']
+      '''Aqui obtengo la Cesta'''
+      '''Aqui creo el pedido'''
+      g.parse('prueba.rdf', format='xml')
+      global numpedido
+      p = "Compra_" + str(numpedido)
+      pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
+      print 'sumo numpedido'
+      numeropedido = Literal(numpedido, datatype=XSD.integer)
+      numpedido = numpedido + 1
+      compradorDefault = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombreComprador)
+      g.add((pedido, RDF.type, n.Compra))
+      g.add((pedido, n.numeroPedido, numeropedido))
+      '''Usuario de pedido por defecto'''
+      g.add((pedido, n.HechoPor, compradorDefault))
+      g.add((pedido, n.estadoPedido, Literal('En Proceso')))
+      g.serialize('prueba.rdf')
+      '''Anado productos comprados'''
+      return 'HECHO'
+    except Exception, e:
+      print str(e)
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
