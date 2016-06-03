@@ -1,0 +1,93 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Acordar producto con vendedor externo
+      </TITLE>
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 15px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
+      </style>
+   </HEAD>
+<BODY>
+    <h1>
+      Acuerdo con vendedor externo:
+    </h1>
+    <form method="post" action="{{url_for('productoExternoAceptado')}}">
+      <table>
+        <tr>
+          <td>
+            <b>Nombre vendedor externo</b>
+          </td>
+          <td>
+            <b>Producto</b>
+          </td>
+          <td>
+	    <b>Cuenta bancaria</b>
+          </td>
+          <td>
+	    <b>Precio</b>
+          </td>
+          <td>
+	    <b>Categoria</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           {{ params['nombre_vendedor']}}
+         </td>
+         <td>
+           {{ params['producto']}}
+         </td>
+         <td>
+           {{ params['cuenta']}}
+         </td>
+         <td>
+           {{ params['precio']}}€
+         </td>
+          <td>
+           {{ params['categoria']}}
+         </td>
+        <tr>
+      </table>
+      <button type="submit" value="Enviar">Aceptar acuerdo</button>
+    </form>
+</BODY>
+</HTML>
