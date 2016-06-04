@@ -18,7 +18,7 @@ peticion = {"nombre_vendedor": None,
             "categoria": None
           }
 '''variable global para asignar numero de pedido'''
-numpedido = 1000
+numpedido = 500
 
 def precioEnIntervalo(precio, filtradoDePrecio):
   if filtradoDePrecio == "De0a30":
@@ -214,7 +214,6 @@ def acordarProductoExterno():
 
 @app.route('/productoExternoAceptado', methods=['POST'])
 def productoExternoAceptado():
-  print 'HOLAAAA'
   g.parse('prueba.rdf', format='xml')
   global peticion
   producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + str(peticion['producto']))
@@ -243,12 +242,12 @@ def realizarPedido():
       cuentaComprador = info['cuenta']
       direccionComprador = info['direccion']
       '''Aqui obtengo la Cesta'''
+      Cesta = json.loads(info['Cesta'])
       '''Aqui creo el pedido'''
       g.parse('prueba.rdf', format='xml')
       global numpedido
       p = "Compra_" + str(numpedido)
       pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
-      print 'sumo numpedido'
       numeropedido = Literal(numpedido, datatype=XSD.integer)
       numpedido = numpedido + 1
       compradorDefault = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombreComprador)
@@ -257,8 +256,14 @@ def realizarPedido():
       '''Usuario de pedido por defecto'''
       g.add((pedido, n.HechoPor, compradorDefault))
       g.add((pedido, n.estadoPedido, Literal('En Proceso')))
-      g.serialize('prueba.rdf')
       '''Anado productos comprados'''
+      for p in Cesta:
+        nprod=p['nombre']
+        producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nprod)
+        g.add((pedido, n.Contiene, producto))
+      g.serialize('prueba.rdf')
+      '''LLamo al agente envios'''
+      '''LLamo al agente banco'''
       return 'HECHO'
     except Exception, e:
       print str(e)

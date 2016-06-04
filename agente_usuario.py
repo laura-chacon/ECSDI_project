@@ -183,7 +183,8 @@ def  realizarPedido():
     direc = request.form["direcciones"]
     infocomprador = {"usuario_nombre": usuario,
                     "cuenta": cuenta,
-                    "direccion": direc
+                    "direccion": direc,
+                    "Cesta": json.dumps(Cesta)
         }
     r = requests.post('http://127.0.0.1:9001/realizarPedido', data=json.dumps(infocomprador))      
   except Exception, e:
