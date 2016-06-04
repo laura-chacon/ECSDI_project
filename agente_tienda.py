@@ -302,6 +302,39 @@ def mispedidos():
   except Exception, e:
     print str(e)
 
+def definirNombreProducto(nombre):
+  nombre_producto = ""
+  for c in nombre:
+    if c != " ":
+      nombre_producto = nombre_producto + c
+  return nombre_producto
+
+@app.route('/Recomendaciones', methods=['GET'])
+def recomendaciones():
+  try:
+    g.parse('prueba.rdf', format='xml')
+    result = []
+    productos = json.loads(request.data)
+    for producto in productos:
+      nombre_producto = definirNombreProducto(str(producto))
+      uri = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombre_producto)
+      print uri
+      gprod = g.triples((uri, RDF.type, None))
+      for s, p, o in gprod:
+        prod = g.triples((None,RDF.type, o))
+        for s,p,o in prod:
+          nprod = g.triples((s,n.nombre,None))
+          for s, p, o in nprod:
+            nombre = o.toPython()
+            nprec = g.triples((s,n.precio, None))
+            precio = 0
+            for s, p, o in nprec:
+              precio = o.toPython()
+              result.append({'nombre': nombre, 'precio': precio})
+    return json.dumps(result)
+  except Exception, e:
+    print str(e)
+
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
 acuerdoVendedorExterno = {}

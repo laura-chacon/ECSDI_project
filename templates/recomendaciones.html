@@ -1,0 +1,103 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Recomendaciones
+      </TITLE>
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 15px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
+        h2 {
+        font-family: Verdana;
+        }
+      </style>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{
+	                                                    url_for('static', filename='jquery.js') }}">\x3C/script>') 
+      </script>
+        <script type=text/javascript>
+	  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        </script>
+        
+        <script type=text/javascript>
+          function añadirCesta(nombre, precio) {
+          $.getJSON($SCRIPT_ROOT + '/addProductCesta', {
+          nombre: nombre,
+          precio: precio,
+          cantidad: $("input#quantity_"+nombre.toLowerCase().replace(/ /g,'')).val()
+          }, function(data) {
+	  console.log(data);
+          $("#nombreProducto").text(data);
+          });
+          return false;
+          };
+        </script>
+   </HEAD>
+<BODY>
+    <ul>
+      <li><a class="active" href="/catalog">Catalogo</a></li>
+      <li><a href="/busqueda">Busqueda</a></li>
+      <li><a href="/MisPedidos">Mis pedidos</a></li>
+      <li><a href="/Cesta">Cesta</a></li>
+      <li><a href="/Recomendaciones">Recomendaciones</a></li>
+  </ul>
+    <h2>Relacionado con productos que has mirado</h2>
+    <table>
+      <tr>
+         <td>
+           <b>Producto</b>
+         </td>
+         <td>
+           <b>Precio</b>
+         </td>
+         <td>
+	   <b>Quantity</b>
+         </td>
+       </tr>
+       {% for recomendacion in recomendaciones %}
+       <tr>
+         <td>
+           {{ recomendacion['nombre']}}
+         </td>
+         <td>
+        {{ recomendacion['precio']}}€
+         </td>
+         <td>
+           <input id="quantity_{{recomendacion['nombre'].lower().replace(" ", "")}}" type="number" min="0" max="99" value="0">
+         </td>
+         <td>
+           <button type="button" onclick="añadirCesta('{{ recomendacion['nombre']}}', {{recomendacion['precio']}})">Añadir a la cesta</button>
+         </td>
+       <tr>
+         {% endfor %}
+    </table>
+</BODY>
+</HTML> 

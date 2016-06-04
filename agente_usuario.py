@@ -201,5 +201,17 @@ def mispedidos():
   except Exception, e:
     print str(e)
 
+@app.route('/Recomendaciones')
+def recomendaciones():
+  try:
+    infoCesta = []
+    for product in Cesta:
+      infoCesta.append(product['nombre'])
+    r = requests.get('http://127.0.0.1:9001/Recomendaciones', data=json.dumps(infoCesta))
+    recomendaciones = json.loads(r.content)
+    return render_template('recomendaciones.html', recomendaciones=recomendaciones)
+  except Exception, e:
+    print str(e)
+
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)
