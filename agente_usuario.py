@@ -181,10 +181,12 @@ def  realizarPedido():
     usuario = request.form["nombres_usuarios"]
     cuenta = request.form["cuentas"]
     direc = request.form["direcciones"]
+    total = getTotalCesta()
     infocomprador = {"usuario_nombre": usuario,
                     "cuenta": cuenta,
                     "direccion": direc,
-                    "Cesta": json.dumps(Cesta)
+                    "Cesta": json.dumps(Cesta),
+                    "totalCompra": total
         }
     r = requests.post('http://127.0.0.1:9001/realizarPedido', data=json.dumps(infocomprador))      
   except Exception, e:
@@ -200,6 +202,7 @@ def mispedidos():
     return render_template('mispedidos.html', pedidos=pedidos)
   except Exception, e:
     print str(e)
+
 
 @app.route('/Recomendaciones')
 def recomendaciones():
