@@ -6,8 +6,11 @@ from rdflib.namespace import XSD
 import json
 import rdflib
 import requests
+import logging
 
 app = Flask(__name__)
+
+'''logging.basicConfig()'''
 
 g = Graph()
 n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
@@ -39,6 +42,13 @@ def obtenerNombre(sujeto):
   for s, p, o in nprod:
     nombre = o.toPython()
   return nombre
+
+def definirNombreProducto(nombre):
+  nombre_producto = ""
+  for c in nombre:
+    if c != " ":
+      nombre_producto = nombre_producto + c
+  return nombre_producto
 
 @app.route('/busqueda_productos')
 def busqueda_productos():
@@ -241,6 +251,7 @@ def realizarPedido():
       print nombreComprador
       cuentaComprador = info['cuenta']
       direccionComprador = info['direccion']
+      totalCompra = info['totalCompra']
       '''Aqui obtengo la Cesta'''
       Cesta = json.loads(info['Cesta'])
       '''Aqui creo el pedido'''
@@ -249,7 +260,6 @@ def realizarPedido():
       p = "Compra_" + str(numpedido)
       pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
       numeropedido = Literal(numpedido, datatype=XSD.integer)
-      numpedido = numpedido + 1
       compradorDefault = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombreComprador)
       g.add((pedido, RDF.type, n.Compra))
       g.add((pedido, n.numeroPedido, numeropedido))
@@ -258,16 +268,75 @@ def realizarPedido():
       g.add((pedido, n.estadoPedido, Literal('En Proceso')))
       '''Anado productos comprados'''
       for p in Cesta:
-        nprod=p['nombre']
+        nprod = definirNombreProducto(p['nombre']) 
         producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nprod)
         g.add((pedido, n.Contiene, producto))
       g.serialize('prueba.rdf')
       '''LLamo al agente envios'''
       '''LLamo al agente banco'''
+      print numpedido
+      infoBanco = { "numpedido" : numpedido,
+                    "nombreComprador": nombreComprador,
+                    "direccionComprador": direccionComprador,
+                    "totalCompra": totalCompra,
+                    "cuentaComprador": cuentaComprador
+      }
+      numpedido = numpedido + 1
+      r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBanco))
       return 'HECHO'
     except Exception, e:
       print str(e)
 
+@app.route('/cobroRealizado', methods=['POST'])
+def cobroRealizado():
+  try:
+    print 'VOY A CAMBIARTE EL ESTADO PRODUCTO'
+    info = json.loads(request.data)
+    print info
+    g.parse('prueba.rdf', format='xml')
+    p = "Compra_" + str(info)
+    pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
+    g.set((pedido, n.estadoPedido, Literal('Pagado')))
+    g.serialize('prueba.rdf')
+    return 'OK'  
+  except Exception, e:
+    print str(e)
+    return 'BAD'
+
+@app.route('/MisPedidos', methods=['GET'])
+def mispedidos():
+  try:
+    result = []
+    g.parse('prueba.rdf', format='xml')
+    compra = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + "Compra")
+    pedidos = g.triples((None, RDF.type, compra))
+    for s, p, o in pedidos:
+      pedidoID = s
+      contieneList = []
+      pedido = {'numero_pedido': '', 'usuario': '', 'estado_pedido': '','contiene': []}
+      hechopor = g.triples((pedidoID, n.HechoPor, None))
+      for s, p, o in hechopor:
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          pedido['usuario'] = o.toPython()
+      numero_pedido = g.triples((pedidoID, n.numeroPedido, None))
+      for s, p, o in numero_pedido:
+        pedido['numero_pedido'] = o.toPython()
+      estado_pedido = g.triples((pedidoID, n.estadoPedido, None))
+      for s, p, o in estado_pedido:
+        pedido['estado_pedido'] = o.toPython()
+      contiene = g.triples((pedidoID, n.Contiene, None))
+      for s, p, o in contiene:
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          producto = {'nombre': o.toPython()}
+          contieneList.append(producto)
+      pedido['contiene'] = json.dumps(contieneList)
+      result.append(pedido)
+    return json.dumps(result)
+  except Exception, e:
+    print str(e)
+             
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
 acuerdoVendedorExterno = {}

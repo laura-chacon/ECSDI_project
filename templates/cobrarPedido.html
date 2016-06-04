@@ -1,0 +1,93 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         BANCO LA CAIXA
+      </TITLE>
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 15px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
+      </style>
+   </HEAD>
+<BODY>
+    <h1>
+      Cobrar pedido:
+    </h1>
+    <form method="post" action="{{url_for('pedidoCobrado')}}">
+      <table>
+        <tr>
+          <td>
+            <b>Num Pedido</b>
+          </td>
+          <td>
+            <b>Nombre usuario</b>
+          </td>
+          <td>
+	    <b>Cuenta bancaria</b>
+          </td>
+          <td>
+	    <b>Direccion Usuario</b>
+          </td>
+          <td>
+	    <b>Total a cobrar</b>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           {{ params['numpedido']}}
+         </td>
+         <td>
+           {{ params['nombreComprador']}}
+         </td>
+         <td>
+           {{ params['cuentaComprador']}}
+         </td>
+         <td>
+           {{ params['direccionComprador']}}
+         </td>
+          <td>
+           {{ params['totalCompra']}} €
+         </td>
+        <tr>
+      </table>
+      <button type="submit" value="Enviar">COBRAR</button>
+    </form>
+</BODY>
+</HTML>
