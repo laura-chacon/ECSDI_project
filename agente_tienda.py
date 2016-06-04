@@ -263,6 +263,40 @@ def realizarPedido():
     except Exception, e:
       print str(e)
 
+@app.route('/MisPedidos', methods=['GET'])
+def mispedidos():
+  try:
+    result = []
+    g.parse('prueba.rdf', format='xml')
+    compra = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + "Compra")
+    pedidos = g.triples((None, RDF.type, compra))
+    for s, p, o in pedidos:
+      pedidoID = s
+      contieneList = []
+      pedido = {'numero_pedido': '', 'usuario': '', 'estado_pedido': '','contiene': []}
+      hechopor = g.triples((pedidoID, n.HechoPor, None))
+      for s, p, o in hechopor:
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          pedido['usuario'] = o.toPython()
+      numero_pedido = g.triples((pedidoID, n.numeroPedido, None))
+      for s, p, o in numero_pedido:
+        pedido['numero_pedido'] = o.toPython()
+      estado_pedido = g.triples((pedidoID, n.estadoPedido, None))
+      for s, p, o in estado_pedido:
+        pedido['estado_pedido'] = o.toPython()
+      contiene = g.triples((pedidoID, n.Contiene, None))
+      for s, p, o in contiene:
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          producto = {'nombre': o.toPython()}
+          contieneList.append(producto)
+      pedido['contiene'] = json.dumps(contieneList)
+      result.append(pedido)
+    return json.dumps(result)
+  except Exception, e:
+    print str(e)
+
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
 acuerdoVendedorExterno = {}

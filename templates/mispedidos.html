@@ -2,7 +2,7 @@
 <HTML>
    <HEAD>
       <TITLE>
-         Realizar Productos
+         Mis pedidos
       </TITLE>
       <style>
 
@@ -40,5 +40,55 @@
       <li><a href="/MisPedidos">Mis pedidos</a></li>
       <li><a href="/Cesta">Cesta</a></li>
   </ul>
+  <table>
+    {% for pedido in pedidos %}
+    <tr>
+      <td>
+        <b>Numero pedido:</b>
+      </td>
+      <td>
+        {{ pedido['numero_pedido'] }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Usuario:</b>
+      </td>
+      <td>
+        {{ pedido['usuario'] }}
+
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Estado pedido:</b>
+      </td>
+      <td>
+        {{ pedido['estado_pedido'] }}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Contiene:</b>
+      </td>
+      <!--
+      {% for prod in pedido['contiene'] %}
+      <td>
+        {{ prod['nombre']}}
+      </td>
+      {% endfor %}
+      -->
+      <td>
+        {{ pedido['contiene'] }}
+      </td>
+    </tr>
+    <tr>
+      <td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td>
+    </tr>
+    {% endfor %}
+  </table>
 </BODY>
 </HTML> 

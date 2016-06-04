@@ -137,11 +137,6 @@ def printCesta():
     print str(e)
     return 'Bad'
 
-@app.route('/MisPedidos')
-def printMisPedidos():
-  return render_template('mispedidos.html')
-
-
 @app.route('/addProductCesta')
 def  addProductCesta():
   
@@ -195,6 +190,15 @@ def  realizarPedido():
     print str(e)
     return 'Bad'
   return 'OK'
+
+@app.route('/MisPedidos')
+def mispedidos():
+  try:
+    r = requests.get('http://127.0.0.1:9001/MisPedidos')
+    pedidos = json.loads(r.content)
+    return render_template('mispedidos.html', pedidos=pedidos)
+  except Exception, e:
+    print str(e)
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)
