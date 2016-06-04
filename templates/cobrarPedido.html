@@ -45,12 +45,31 @@
         background-color: #111;
         }
       </style>
+      
+       <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{
+  url_for('static', filename='jquery.js') }}">\x3C/script>') 
+      </script>
+      <script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+      </script>
+
+      <script type=text/javascript>
+        function pedidoCobrado(numpedido) {
+        $.getJSON($SCRIPT_ROOT + '/pedidoCobrado', {
+        numpedido: numpedido
+        }, function(data) {
+  console.log(data);
+        return true;
+        });
+        return false;
+        };
+</script>
    </HEAD>
 <BODY>
     <h1>
       Cobrar pedido:
     </h1>
-    <form method="post" action="{{url_for('pedidoCobrado')}}">
       <table>
         <tr>
           <td>
@@ -69,25 +88,29 @@
 	    <b>Total a cobrar</b>
           </td>
         </tr>
+
+       {% for i in params %}
         <tr>
           <td>
-           {{ params['numpedido']}}
+           {{ i['numpedido']}}
          </td>
          <td>
-           {{ params['nombreComprador']}}
+           {{ i['nombreComprador']}}
          </td>
          <td>
-           {{ params['cuentaComprador']}}
+           {{ i['cuentaComprador']}}
          </td>
          <td>
-           {{ params['direccionComprador']}}
+           {{ i['direccionComprador']}}
          </td>
           <td>
-           {{ params['totalCompra']}} €
+           {{ i['totalCompra']}} €
+         </td>
+         <td>
+            <button type="button"  onclick="pedidoCobrado({{ i['numpedido']}})">COBRAR</button>
          </td>
         <tr>
+           {% endfor %}
       </table>
-      <button type="submit" value="Enviar">COBRAR</button>
-    </form>
 </BODY>
 </HTML>

@@ -15,6 +15,23 @@ infoBanco = []
 g = Graph()
 n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
 
+def newInfo(numpedido, nombreComprador, direccionComprador, totalCompra, cuentaComprador):
+	try:
+		info ={"numpedido": numpedido, "nombreComprador": nombreComprador, "direccionComprador": direccionComprador, "totalCompra": totalCompra, "cuentaComprador": cuentaComprador}
+		infoBanco.append(info)
+	except Exception, e:
+		print str(e)
+
+def deleteInfo(numpedido):
+	try:
+		for i in infoBanco:
+			if(i['numpedido'] == numpedido):
+				infoBanco.remove(i)
+		print infoBanco
+	except Exception, e:
+		print str(e)
+
+
 @app.route('/realizarTransaccion', methods=['GET', 'POST'])
 def  realizarTransaccion():
 	try:
@@ -22,21 +39,34 @@ def  realizarTransaccion():
 			global infoBanco
 			print 'VOY A COBRARTE'
 			print request.data
-			infoBanco = json.loads(request.data)
+			info = json.loads(request.data)
+			numpedido = info['numpedido']
+			print numpedido
+			nombreComprador = info['nombreComprador']
+			print nombreComprador
+			direccionComprador = info['direccionComprador']
+			print direccionComprador
+			totalCompra = info['totalCompra']
+			print totalCompra
+			cuentaComprador = info['cuentaComprador']
+			newInfo(numpedido, nombreComprador, direccionComprador, totalCompra, cuentaComprador)
 			'''EL BANCO TE COBRA'''
 			return 'OK'
 		if request.method == 'GET':
+			'''infoparams = {"info": json.dumps(infoBanco)}'''
 			return render_template('cobrarPedido.html', params=infoBanco)
 	except Exception, e:
 	    print str(e)
     	return 'Bad'
 
-@app.route('/pedidoCobrado', methods=['POST'])
+@app.route('/pedidoCobrado', methods=['GET'])
 def pedidoCobrado():
 	try:
 		print 'YA LO COBRE'
-		print infoBanco['numpedido']
-		r = requests.post('http://127.0.0.1:9001/cobroRealizado', data=str(infoBanco['numpedido']))
+		numpedido = request.args.get("numpedido", type=int)
+		print str(numpedido)
+		r = requests.post('http://127.0.0.1:9001/cobroRealizado', data=str(numpedido))
+		deleteInfo(numpedido)
 		return 'OK'
 	except Exception, e:
 		print str(e)
