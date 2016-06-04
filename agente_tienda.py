@@ -303,6 +303,7 @@ def cobroRealizado():
     print str(e)
     return 'BAD'
 
+
 @app.route('/MisPedidos', methods=['GET'])
 def mispedidos():
   try:
@@ -336,7 +337,7 @@ def mispedidos():
     return json.dumps(result)
   except Exception, e:
     print str(e)
-             
+    
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)
 acuerdoVendedorExterno = {}
