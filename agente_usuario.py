@@ -245,6 +245,37 @@ def devolverProducto():
     except Exception, e:
      print str(e)
      return 'Bad'
+ 
+
+@app.route('/Valorar', methods=['POST'])
+
+def valorar():
+    try: 
+     numPedido = request.form['numeroPedido']
+     peticion = {"numeroPedido": numPedido}
+     peticion = json.dumps(peticion)
+     r = requests.get('http://127.0.0.1:9001/obtenerValoracion', data=peticion)
+     result = json.loads(r.content)
+     return render_template('valoracion.html', valoracion = result)
+    except Exception, e:
+     print str(e)
+     return 'Bad'
+ 
+@app.route('/realizarValoracion', methods=['POST'])
+
+def realizarValoracion():
+    try: 
+     numPedido = request.form['numeroPedido']
+     envio = request.form['envio']
+     contacto = request.form['contacto']
+     estado = request.form['estado']
+     peticion = {"numeroPedido": numPedido, "envio": envio, "estado": estado, "contacto": contacto}
+     peticion = json.dumps(peticion)
+     r = requests.get('http://127.0.0.1:9001/realizarValoracion', data=peticion)
+     return "Valoracion Hecha"
+    except Exception, e:
+     print str(e)
+     return 'Bad'
     
 
 

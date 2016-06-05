@@ -1,0 +1,92 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Mis pedidos
+      </TITLE>
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 8px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+        li {
+        float: left;
+        }
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+        li a:hover {
+        background-color: #111;
+        }
+      </style>
+   </HEAD>
+<BODY>
+    <ul>
+      <li><a class="active" href="/catalog">Catalogo</a></li>
+      <li><a href="/busqueda">Busqueda</a></li>
+      <li><a href="/MisPedidos">Mis pedidos</a></li>
+      <li><a href="/Cesta">Cesta</a></li>
+      <li><a href="/Recomendaciones">Recomendaciones</a></li>
+  </ul>
+  <h3> Valorar Pedido {{valoracion["numeroPedido"]}}</h3>
+  <h4> Por {{valoracion["nombreUsuario"]}} </h4>
+  <form action="{{url_for('realizarValoracion')}}"  method="post">
+    <input type="hidden" name="numeroPedido" value="{{valoracion["numeroPedido"]}}">
+    <table>
+        <tr>
+        <td>
+            <b>Envio:</b>
+        </td>
+        <td>
+        <textarea name="envio" rows="4" cols="50">
+            {{valoracion["envio"]}}
+        </textarea>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <b>Contacto con Vendedor o Tienda:</b>
+        </td>
+        <td>
+            <textarea name="contacto" rows="4" cols="50">
+            {{valoracion["contacto"]}}
+            </textarea>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <b>Estado de Productos:</b>
+        </td>
+        <td>
+        <textarea name="estado" rows="4" cols="50">
+            {{valoracion["estado"]}}
+        </textarea>
+        </td>
+        </tr>
+        <tr>
+        <td></td><td></td>
+        </tr>
+        <tr>
+        <td>
+        <input type="submit" value="Valorar">
+        </td>
+        <td></td>
+        </tr>
+    </table>
+  </form>
+</BODY>
+</HTML> 

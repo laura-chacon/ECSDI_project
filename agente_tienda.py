@@ -462,6 +462,69 @@ def devolverProducto():
     print str(e)
     return "Bad"
 
+@app.route('/obtenerValoracion')
+def obtenerValoracion():
+  try:
+    g.parse('prueba.rdf', format='xml')
+    result = []
+    pedido = json.loads(request.data)
+    numeropedido = str(pedido["numeroPedido"])
+    print numeropedido
+    compra = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeropedido)
+    result = {"numeroPedido": numeropedido, "nombreUsuario": "", "envio": "", "contacto": "", "estado": ""}
+    valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido)
+    if (valoracion, None, None) in g: 
+        nval = g.triples((valoracion, n.comentarioEnvio, None))
+        for s,p, o in nval:
+            result["envio"] = o.toPython()
+        nval = g.triples((valoracion, n.comentarioEstado, None))
+        for s,p, o in nval:
+            result["estado"] = o.toPython()
+        nval = g.triples((valoracion, n.comentarioContacto, None))
+        for s,p, o in nval:
+            result["contacto"] = o.toPython()
+        nval = g.triples((valoracion, n.HechoPor, None))
+        for s, p, o in nval:
+            usuario = g.triples((o, n.nombre, None))
+            for s, p, o in usuario:
+                result["nombreUsuario"] = o.toPython()
+    else:
+        g.add((valoracion, RDF.type, n.Valoracion))
+        g.add((valoracion, n.numeroPedido, Literal(numeropedido)))
+        g.add((valoracion, n.comentarioEnvio, Literal("")))
+        g.add((valoracion, n.comentarioEstado, Literal("")))
+        g.add((valoracion, n.comentarioContacto, Literal("")))
+        nval = g.triples((compra, n.HechoPor, None))
+        for s, p, o in nval:
+            usuario = g.triples((o, n.nombre, None))
+            for s, p, o in usuario:
+                result["nombreUsuario"] = o.toPython()
+                uriUsuario = URIRef("http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"+ str(o.toPython()))
+                g.add((valoracion, n.HechoPor, uriUsuario))
+    g.serialize("prueba.rdf")
+    return json.dumps(result)
+  except Exception, e:
+    print str(e)
+    
+@app.route('/realizarValoracion')
+def realizarValoracion():
+  try:
+    g.parse('prueba.rdf', format='xml')
+    nuevaVal = json.loads(request.data)
+    numeropedido = str(nuevaVal["numeroPedido"])
+    print numeropedido
+    valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido)
+    g.set((valoracion, n.comentarioEnvio, Literal(nuevaVal["envio"])))
+    g.set((valoracion, n.comentarioEstado, Literal(nuevaVal["estado"])))
+    g.set((valoracion, n.comentarioContacto, Literal(nuevaVal["contacto"])))
+        
+    g.serialize("prueba.rdf")
+    return 'OK'
+  except Exception, e:
+    print str(e)
+    return 'Bad'
+  
+
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9001)

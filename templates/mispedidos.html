@@ -86,7 +86,13 @@
         <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
         <input type="submit" value="DevolverPedido">
        </form>
-      </td><td></td>
+      </td>
+      <td>
+      <form action="{{url_for('valorar')}}"  method="post">
+        <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
+        <input type="submit" value="Valorar">
+       </form>
+       </td>
     </tr>
     {% endfor %}
   </table>
