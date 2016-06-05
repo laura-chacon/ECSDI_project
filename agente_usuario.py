@@ -216,5 +216,37 @@ def recomendaciones():
   except Exception, e:
     print str(e)
 
+@app.route('/devolverPedido', methods=['POST'])
+
+def devolverPedido():
+    try: 
+     numPedido = request.form['numeroPedido']
+     peticion = {'numeroPedido': numPedido}
+     peticion = json.dumps(peticion)
+     r = requests.get('http://127.0.0.1:9001/devolverPedido', data=peticion)
+     result = json.loads(r.content)
+     result["productos"] = json.loads(result["productos"])
+     return render_template('devolverPedido.html', data = result)
+    except Exception, e:
+     print str(e)
+     return 'Bad'
+ 
+@app.route('/devolverProducto', methods=['POST'])
+
+def devolverProducto():
+    try: 
+     numPedido = request.form['numeroPedido']
+     nombreProducto = request.form['nombreProducto']
+     nombreUsuario = request.form['nombreUsuario']
+     peticion = {"numeroPedido": numPedido, "nombreProducto": nombreProducto, "nombreUsuario": nombreUsuario}
+     peticion = json.dumps(peticion)
+     r = requests.get('http://127.0.0.1:9001/devolverProducto', data=peticion)
+     return "Producto Devuelto"
+    except Exception, e:
+     print str(e)
+     return 'Bad'
+    
+
+
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9000)

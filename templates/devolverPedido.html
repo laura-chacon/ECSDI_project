@@ -42,53 +42,22 @@
       <li><a href="/Cesta">Cesta</a></li>
       <li><a href="/Recomendaciones">Recomendaciones</a></li>
   </ul>
+  <h3> Devolver Producto de Pedido {{data["pedido"]["numeroPedido"]}}</h3>
   <table>
-    {% for pedido in pedidos %}
-    <tr>
-      <td>
-        <b>Numero pedido:</b>
-      </td>
-      <td>
-        {{ pedido['numero_pedido'] }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Usuario:</b>
-      </td>
-      <td>
-        {{ pedido['usuario'] }}
-
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Estado pedido:</b>
-      </td>
-      <td>
-        {{ pedido['estado_pedido'] }}
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Contiene:</b>
-      </td>
-      <td>
-        {{ pedido['contiene'] }}
-      </td>
-    </tr>
-    <tr>
-      <td></td><td></td>
-    </tr>
-    <tr>
-      <td>
-      <form action="{{url_for('devolverPedido')}}"  method="post">
-        <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
-        <input type="submit" value="DevolverPedido">
+  {%for producto in data["productos"] %}
+   <tr>
+   <td>{{producto["nombre"]}} </td>
+   <td>
+        <form action="{{url_for('devolverProducto')}}"  method="post">
+            <input type="hidden" name="numeroPedido" value="{{data['pedido']['numeroPedido']}}">
+            <input type="hidden" name="nombreUsuario" value="{{data['pedido']['nombreUsuario']}}">
+            <input type="hidden" name="nombreProducto" value="{{producto['nombre']}}">
+            <input type="submit" value="Devolver">
        </form>
-      </td><td></td>
-    </tr>
+   </td>
+   </tr>
     {% endfor %}
   </table>
+  
 </BODY>
 </HTML> 
