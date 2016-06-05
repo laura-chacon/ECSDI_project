@@ -55,9 +55,10 @@
       </script>
 
       <script type=text/javascript>
-        function pedidoCobrado(numpedido) {
+        function pedidoCobrado(numpedido, tipo) {
         $.getJSON($SCRIPT_ROOT + '/pedidoCobrado', {
-        numpedido: numpedido
+        numpedido: numpedido,
+        tipo: tipo
         }, function(data) {
   console.log(data);
         return true;
@@ -85,6 +86,9 @@
 	    <b>Direccion Usuario</b>
           </td>
           <td>
+	    <b>Tipo</b>
+          </td>
+          <td>
 	    <b>Total a cobrar</b>
           </td>
         </tr>
@@ -103,11 +107,14 @@
          <td>
            {{ i['direccionComprador']}}
          </td>
+         <td>
+           {{ i['tipo']}}
+         </td>
           <td>
            {{ i['totalCompra']}} €
          </td>
          <td>
-            <button type="button"  onclick="pedidoCobrado({{ i['numpedido']}})">COBRAR</button>
+            <button type="button"  onclick="pedidoCobrado({{ i['numpedido']}}, '{{i['tipo']}}')">COBRAR</button>
          </td>
         <tr>
            {% endfor %}

@@ -53,7 +53,7 @@
         </td>
         <td>
         <textarea name="envio" rows="4" cols="50">
-            {{valoracion["envio"]}}
+            {{valoracion["envio"].strip()}}
         </textarea>
         </td>
         </tr>
@@ -63,7 +63,7 @@
         </td>
         <td>
             <textarea name="contacto" rows="4" cols="50">
-            {{valoracion["contacto"]}}
+            {{valoracion["contacto"].strip()}}
             </textarea>
         </td>
         </tr>
@@ -73,7 +73,7 @@
         </td>
         <td>
         <textarea name="estado" rows="4" cols="50">
-            {{valoracion["estado"]}}
+            {{valoracion["estado"].strip()}}
         </textarea>
         </td>
         </tr>

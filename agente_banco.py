@@ -15,9 +15,9 @@ infoBanco = []
 g = Graph()
 n = Namespace('http://www.owl-ontologies.com/ECSDI/projectX.owl#')
 
-def newInfo(numpedido, nombreComprador, direccionComprador, totalCompra, cuentaComprador):
+def newInfo(numpedido, nombreComprador, direccionComprador, totalCompra, cuentaComprador, tipo):
 	try:
-		info ={"numpedido": numpedido, "nombreComprador": nombreComprador, "direccionComprador": direccionComprador, "totalCompra": totalCompra, "cuentaComprador": cuentaComprador}
+		info ={"numpedido": numpedido, "nombreComprador": nombreComprador, "direccionComprador": direccionComprador, "totalCompra": totalCompra, "cuentaComprador": cuentaComprador, "tipo": tipo}
 		infoBanco.append(info)
 	except Exception, e:
 		print str(e)
@@ -49,7 +49,8 @@ def  realizarTransaccion():
 			totalCompra = info['totalCompra']
 			print totalCompra
 			cuentaComprador = info['cuentaComprador']
-			newInfo(numpedido, nombreComprador, direccionComprador, totalCompra, cuentaComprador)
+			tipo = info['tipo']
+			newInfo(numpedido, nombreComprador, direccionComprador, totalCompra, cuentaComprador, tipo)
 			'''EL BANCO TE COBRA'''
 			return 'OK'
 		if request.method == 'GET':
@@ -64,8 +65,11 @@ def pedidoCobrado():
 	try:
 		print 'YA LO COBRE'
 		numpedido = request.args.get("numpedido", type=int)
+		tipo = request.args.get("tipo")
 		print str(numpedido)
-		r = requests.post('http://127.0.0.1:9001/cobroRealizado', data=str(numpedido))
+		print tipo
+		peticion = {"numeroPedido": numpedido, "tipo": tipo}
+		r = requests.post('http://127.0.0.1:9001/cobroRealizado',data = json.dumps(peticion))
 		deleteInfo(numpedido)
 		return 'OK'
 	except Exception, e:

@@ -277,7 +277,8 @@ def realizarPedido():
                     "nombreComprador": nombreComprador,
                     "direccionComprador": direccionComprador,
                     "totalCompra": totalCompra,
-                    "cuentaComprador": cuentaComprador
+                    "cuentaComprador": cuentaComprador, 
+                    "tipo": "Compra"
       }
       numpedido = numpedido + 1
       print numpedido
@@ -294,10 +295,20 @@ def cobroRealizado():
     print 'VOY A CAMBIARTE EL ESTADO PRODUCTO'
     info = json.loads(request.data)
     print info
+    numPedido = info['numeroPedido']
     g.parse('prueba.rdf', format='xml')
-    p = "Compra_" + str(info)
-    pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
-    g.set((pedido, n.estadoPedido, Literal('Pagado')))
+    print info
+    tipo = str(info['tipo'])
+    if tipo == 'Devolucion' :
+        p = "Devolucion_" + str(numPedido)
+        pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
+        print pedido
+        g.set((pedido, n.estadoDevolucion, Literal('Pagado')))  
+    else :
+        p = "Compra_" + str(numPedido)
+        pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
+        print pedido
+        g.set((pedido, n.estadoPedido, Literal('Pagado')))
     g.serialize('prueba.rdf')
     return 'OK'  
   except Exception, e:
@@ -452,6 +463,34 @@ def devolverProducto():
             print 'existen productos'
         else :
             g.set((compra, n.estadoPedido, Literal("Devuelto")))
+    
+        nombreUsuario = ""
+        direccionComprador = ""
+        totalCompra = ""
+        cuentaComprador = ""
+        tipo = "Devolucion"
+        nombre = g.triples((usuario, n.nombre, None))
+        for s, p,o in nombre:
+            nombreUsuario = str(o.toPython())
+        dirr = g.triples((usuario, n.direccion, None))
+        for s, p,o in dirr:
+            direccionComprador = str(o.toPython())
+        cuent = g.triples((usuario, n.cuentaBancaria, None))
+        for s, p,o in cuent:
+            cuentaComprador = str(o.toPython())
+        
+        #FALTA TOTAL
+        infoBanco = { "numpedido" : numeropedido,
+                    "nombreComprador": nombreUsuario,
+                    "direccionComprador": direccionComprador,
+                    "totalCompra": totalCompra,
+                    "cuentaComprador": cuentaComprador, 
+                    "tipo": tipo
+        }
+    
+        r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBanco))
+    
+    
     
     g.serialize("prueba.rdf")
     

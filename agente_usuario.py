@@ -266,9 +266,9 @@ def valorar():
 def realizarValoracion():
     try: 
      numPedido = request.form['numeroPedido']
-     envio = request.form['envio']
-     contacto = request.form['contacto']
-     estado = request.form['estado']
+     envio = request.form['envio'].strip()
+     contacto = request.form['contacto'].strip()
+     estado = request.form['estado'].strip()
      peticion = {"numeroPedido": numPedido, "envio": envio, "estado": estado, "contacto": contacto}
      peticion = json.dumps(peticion)
      r = requests.get('http://127.0.0.1:9001/realizarValoracion', data=peticion)
