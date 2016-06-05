@@ -128,12 +128,6 @@ def busqueda_productos():
   except Exception,e: 
     print str(e)
   jsondata = json.dumps(result)
-  usuario = n.usuario_prueba
-  nombre = Literal('Esther2')
-  rdftype = n.Usuario
-  g.add((usuario, RDF.type, rdftype))
-  g.add((usuario,n.nombre,nombre))
-  g.serialize('prueba.rdf')
   return jsondata
 
 @app.route('/allproducts')
