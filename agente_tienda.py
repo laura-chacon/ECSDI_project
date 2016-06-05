@@ -265,6 +265,7 @@ def realizarPedido():
       '''Usuario de pedido por defecto'''
       g.add((pedido, n.HechoPor, compradorDefault))
       g.add((pedido, n.estadoPedido, Literal('En Proceso')))
+      g.add((pedido, n.Total, Literal(totalCompra)))
       '''Anado productos comprados'''
       for p in Cesta:
         nprod = definirNombreProducto(p['nombre']) 
@@ -478,6 +479,9 @@ def devolverProducto():
         cuent = g.triples((usuario, n.cuentaBancaria, None))
         for s, p,o in cuent:
             cuentaComprador = str(o.toPython())
+        totalC = g.triples((compra, n.Total, None))
+        for s, p, o in totalC:
+            totalCompra = str(o.toPython())
         
         #FALTA TOTAL
         infoBanco = { "numpedido" : numeropedido,
