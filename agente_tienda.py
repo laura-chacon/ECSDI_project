@@ -505,7 +505,7 @@ def devolverProducto():
         if notExistDev:
             g.add((existDev, RDF.type, n.Devolucion))
             g.add((existDev, n.Contiene, producto))
-	    g.add((existDev, n.numeroPedido, Literal(numeroPedido)))
+	    g.add((existDev, n.numeroPedido, Literal(numeropedido)))
             g.add((existDev, n.estadoDevolucion, Literal("Pendiente de Pago")))
             g.add((existDev, n.HechoPor, usuario))
             
