@@ -32,6 +32,15 @@ def derivarPedido():
  except Exception,e:
     return 'Bad'
 
+def deleteInfo(numpedido):
+	try:
+		for i in pedidosPorProcesar:
+			if(i['numeroPedido'] == numpedido):
+				pedidosPorProcesar.remove(i)
+		print infoBanco
+	except Exception, e:
+		print str(e)
+
 @app.route('/realizarEnvios')
 def realizarEnvios():
 
@@ -50,7 +59,6 @@ def realizarEnvios():
             for s, p, o in nombreTrans:
                 transportista = {"nombre": o.toPython()}
                 nombreTransportistas.append(transportista)
-        pedidosPorProcesar = []
         return render_template('envios.html', trans = nombreTransportistas, pedidos= pedidosList)
     except Exception,e:
         print str(e)
