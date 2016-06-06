@@ -2,13 +2,13 @@
 <HTML>
    <HEAD>
       <TITLE>
-         Cesta
+         Mis pedidos
       </TITLE>
       <style>
         td {
         font-family: Verdana;
         font-size: 15px;
-        padding: 15px;
+        padding: 8px;
         }
         ul {
         list-style-type: none;
@@ -19,11 +19,9 @@
         font-family: Verdana;
         font-size: 17px;
         }
-
         li {
         float: left;
         }
-
         li a {
         display: inline-block;
         color: white;
@@ -31,71 +29,68 @@
         padding: 14px 16px;
         text-decoration: none;
         }
-
         li a:hover {
         background-color: #111;
         }
       </style>
-</script>
-      
-      
    </HEAD>
 <BODY>
-    <ul>
-      <li><a class="active" href="/catalog">Catalogo</a></li>
-      <li><a href="/busqueda">Busqueda</a></li>
-      <li><a href="/MisPedidos">Mis pedidos</a></li>
-      <li><a href="/Cesta">Cesta</a></li>
-      <li><a href="/Recomendaciones">Recomendaciones</a></li>
-    </ul>
-     <table>
-       <tr>
-         <td>
-           <b>Pedido</b>
-         </td>
-         <td>
-           <b>Transportista</b>
-         </td>
-	 <td>
-           <b>Destinatario</b>
-         </td>
-	 <td>
-           <b>Dirreccion</b>
-         </td>
-         <td>
-           <b>Fecha de Entrega</b>
-         </td>
-      
-       </tr>
-       {% for envio in envios %}
-	<form method='post' action="{{url_for(pedidoEnviado)}}">
-       <tr>
-         <td>
-           {{ envio['numPedido']}}
-         </td>
-          <td>
-          <select name="nombreTransportista">
-              {% for transportista in transportista %}
-              <option value="{{transportista['nombre']}}">
-                {{transportista['nombre']}}
-              </option>
-              {% endfor %}
-            </select>
-         </td>
-         <td>
-         {{envio['nombreUsuario']}}
-         </td>
-         <td>
-          {{envio['dirreccion']}}
-         </td>
-	<td>	
-	<input type="date" name="fechaEntrega">
-        </td>
-	<input type="submit" value="Confirmar Envio">
-        </form>        
-          
-       <tr>
+<h1>Envios de Centro Logistico</h1>
+  <table>
+    {% for pedido in pedidos %}
+    <tr>
+    <form action="{{url_for('pedidoEnviado')}}" method="post">
+      <td>
+        <b>Numero pedido:</b>
+      </td>
+      <td>
+        <input type="hidden" name="numeroPedido" value="{{ pedido['numPedido'] }}">
+        {{ pedido['numPedido'] }}
+      </td>
+       <td>
+        <b> Usuario:</b>
+      </td>
+      <td>
+        <input type="hidden" name="nombreUsuario" value="{{ pedido['nombreUsuario'] }}">
+        {{ pedido['nombreUsuario'] }}
+      </td>
+      <td>
+        <b>Dirrecion:</b>
+      </td>
+      <td>
+      <input type="hidden" name="dirreccion" value="{{ pedido['dirreccion'] }}">
+        {{ pedido['dirreccion'] }}
+      </td>
+       <td>
+        <b>Transportista:</b>
+      </td>
+      <td>
+        <select name="nombreTransportista">
+            {% for transportista in trans %}
+            <option value="{{transportista['nombre']}}">
+            {{transportista['nombre']}}
+            </option>
+            {% endfor %}
+        </select>
+      </td>
+      <td>
+        <b>Fecha Entrega:</b>
+      </td>
+      <td>
+        <input type="date" name="fechaEntrega">
+      </td>
+      <td>
+        <input type="submit" value="ConfirmarEnvio">
+      </td>
+      </form>
+    </tr>
 
-         {% endfor %}
-     </table>
-</BODY></HTML> 
+    {% endfor %}
+  </table>
+</BODY>
+</HTML> 
+
+
+<rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#NombrePedidos">
+    <contador rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">547</contador>
+  </rdf:Description>

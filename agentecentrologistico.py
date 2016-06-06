@@ -23,42 +23,58 @@ peticion = {"nombre_vendedor": None,
 
 pedidosPorProcesar = []
 
-@app.route('/derivarPedido')
+@app.route('/derivarPedido', methods=['POST'])
 def derivarPedido():
  try:
-	pedido = json.loads(requests.data)
-	pedidosPorProcesar.append(pedido)
-	return 'OK'
+    pedido = json.loads(request.data)
+    pedidosPorProcesar.append(pedido)
+    return 'OK'
  except Exception,e:
-	return 'Bad'
+    return 'Bad'
 
 @app.route('/realizarEnvios')
 def realizarEnvios():
 
     g.parse('prueba.rdf', format='xml')
     try:
-	pedidos = []
-	for pet in pedidosPorProcesar:
-		peticion = {"numPedido": pet['numPedido'], "dirreccion": pet['dirreccion'], "nombreUsuario": pet["nombreUsuario"]}
-		pedidos.append(peticion)
-	nombreTransportistas = []
-	transportistas = g.triples((n, RDF.type, n.Transportista))
-	for s,p,o in transportistas:
-		nombreTrans = g.triples((s, n.nombre, None))
-		transportista = {"nombre": o.ToPython()}
-		nombreTransportistas.append(transportista)
-	return render_template('envios.html', transportistas=json.dumps(nombreTransportistas), pedidos=json.dumps(pedidos))
-     except Exception,e:
-	return 'Bad'
+        pedidosList = []
+        for pet in pedidosPorProcesar:
+            print 'entramos'
+            peticion = {'numPedido': pet['numPedido'], 'dirreccion': pet['dirreccion'], 'nombreUsuario': pet["nombreUsuario"]}
+            pedidosList.append(peticion)
+        nombreTransportistas = []
+        ntrans = g.triples((None, RDF.type, n.Transportista))
+        for s,p,o in ntrans:
+            print 'entramos'
+            nombreTrans = g.triples((s, n.nombre, None))
+            for s, p, o in nombreTrans:
+                transportista = {"nombre": o.toPython()}
+                nombreTransportistas.append(transportista)
+        print str(pedidosList)
+        print str(nombreTransportistas)
+        print len(pedidosList)
+        print json.dumps(pedidosList)
+        data = {"pedidos" : ""}
+        print data
+        return render_template('envios.html', trans = nombreTransportistas, pedidos= pedidosList)
+    except Exception,e:
+        print str(e)
+        return 'Bad'
 
-@app.route('/pedidoEnviado')
-def confirmarPedido():
+@app.route('/pedidoEnviado',  methods=['POST'])
+def pedidoEnviado():
    try:
-	pedido = json.loads(requests.data);
-	r = requests.get('http://127.0.0.1:9001/pedidoEnviado', data=json.dumps(pedido))
-	return 'OK'
+    pedido = {"nombreUsuario":"", "dirreccion" : "", "nombreTransportista": "", "fechaEntrega": "", "numeroPedido": ""}
+    pedido['nombreUsuario'] = request.form['nombreUsuario']
+    pedido['dirreccion'] = request.form['dirreccion']
+    pedido['nombreTransportista'] = request.form['nombreTransportista']
+    pedido['fechaEntrega'] = request.form['fechaEntrega']
+    pedido['numeroPedido'] = request.form['numeroPedido']
+    r = requests.post('http://127.0.0.1:9001/pedidoEnviado', data=json.dumps(pedido))
+    return 'OK'
    except Exception,e:
-	return 'Bad'
+    print str(e)
+    return 'Bad'
 
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9004)    

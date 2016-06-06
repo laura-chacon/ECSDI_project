@@ -580,16 +580,18 @@ def realizarValoracion():
     print str(e)
     return 'Bad'
 
-@app.route('/pedidoEnviado')
+@app.route('/pedidoEnviado',  methods=['POST'])
 def pedidoEnviado():
  try:
     g.parse('prueba.rdf', format='xml')
-    envio = json.loads(requests.data)
+    envio = json.loads(request.data)
+    print envio
     numeroPedido = str(envio['numeroPedido'])
     pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeroPedido)
     g.add((pedido, n.fechaEntrega, Literal(str(envio['fechaEntrega']))))
     g.add((pedido, n.EnviadoPor, Literal(envio['nombreTransportista'])))
     g.add((pedido, n.estadoEnvio, Literal("Enviado")))
+    g.serialize('prueba.rdf')
     return 'OK'
  except Exception, e:
     print str(e)
