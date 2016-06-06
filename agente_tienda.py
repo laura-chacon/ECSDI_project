@@ -175,32 +175,6 @@ def all_products():
   jsondata = json.dumps(result)
   return jsondata
 
-
-@app.route('/pedidos')
-def pedidos():
-  try:
-    g.parse('prueba.rdf', format='xml')
-    compras = g.triples((None,RDF.type, n.Compra))
-    for s,p,o in compras:
-      print s,p,o
-      enviado = g.triples((s,n.Contiene, None))
-      for s,p,o in enviado:
-	print "Sujeto"
-	print s
-	print "Predicado"
-	print p
-	print "Objeto"
-	print o.toPython()
-	producto = g.triples((o, n.nombre, None))
-	for s,p,o in producto:
-	  print "Nombre"
-	  print o
-    return 'OK'
-  except Exception,e:
-    print str(e)
-    return 'Bad'
-
-
 @app.route('/acordarProductoExterno', methods=['GET', 'POST'])
 def acordarProductoExterno():
   global peticion
@@ -268,24 +242,28 @@ def realizarPedido():
       g.add((pedido, n.Total, Literal(totalCompra)))
       '''Anado productos comprados'''
       for p in Cesta:
-        nprod = definirNombreProducto(p['nombre']) 
-        producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nprod)
-        g.add((pedido, n.Contiene, producto))
-      '''LLamo al agente envios'''
-      '''LLamo al agente banco'''
-      print numpedido
-      infoBanco = { "numpedido" : numpedido,
-                    "nombreComprador": nombreComprador,
-                    "direccionComprador": direccionComprador,
-                    "totalCompra": totalCompra,
-                    "cuentaComprador": cuentaComprador, 
-                    "tipo": "Compra"
-      }
-      numpedido = numpedido + 1
-      print numpedido
+            nprod = definirNombreProducto(p['nombre']) 
+            producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nprod)
+            g.add((pedido, n.Contiene, producto))
+            infoEnvio = { "numPedido" : numpedido,
+                    "nombreUsuario": nombreComprador,
+                    "dirreccion" : direccionComprador
+                    }
+            print infoEnvio
+            r = requests.post('http://127.0.0.1:9004/derivarPedido', data=json.dumps(infoEnvio))
+            infoBanco = { "numpedido" : numpedido,
+                "nombreComprador": nombreComprador,
+                "direccionComprador": direccionComprador,
+                "totalCompra": totalCompra,
+                "cuentaComprador": cuentaComprador, 
+                "tipo": "Compra"
+            }
+            numpedido = numpedido + 1
+            r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBanco))
       g.set((n.NombrePedidos, n.contador, Literal(numpedido)))
       g.serialize('prueba.rdf')
-      r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBanco))
+      
+
       return 'HECHO'
     except Exception, e:
       print str(e)
@@ -353,6 +331,47 @@ def mispedidos():
     return json.dumps(result)
   except Exception, e:
     print str(e)
+
+@app.route('/misDevoluciones', methods=['GET'])
+def misDevoluciones():
+  try:
+    result = []
+    g.parse('prueba.rdf', format='xml')
+    devolucion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + "Devolucion")
+    devoluciones = g.triples((None, RDF.type, devolucion))
+    for s, p, o in devoluciones:
+      pedidoID = s
+      contieneList = []
+      pedido = {'numero_pedido': '', 'usuario': '', 'estado_devolucion': '','contiene': []}
+      hechopor = g.triples((pedidoID, n.HechoPor, None))
+      for s, p, o in hechopor:
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          pedido['usuario'] = o.toPython()
+      numero_pedido = g.triples((pedidoID, n.numeroPedido, None))
+      for s, p, o in numero_pedido:
+        pedido['numero_pedido'] = o.toPython()
+      estado_devolucion = g.triples((pedidoID, n.estadoDevolucion, None))
+      for s, p, o in estado_devolucion:
+        pedido['estado_devolucion'] = o.toPython()
+      contiene = g.triples((pedidoID, n.Contiene, None))
+      for s, p, o in contiene:
+        print o
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          producto = {'nombre': o.toPython()}
+          print producto
+          contieneList.append(producto)
+
+      pedido['contiene'] = json.dumps(contieneList)
+      result.append(pedido)
+    print result
+    return json.dumps(result)
+  except Exception, e:
+    print str(e)
+
+
+
 
 def definirNombreProducto(nombre):
   nombre_producto = ""
@@ -429,10 +448,6 @@ def devolverProducto():
     producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + definirNombreProducto((data["nombreProducto"])))
     usuario = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_' + str(data["nombreUsuario"]))
     
-    print compra
-    print producto
-    
-    
     
     if (compra, n.Contiene, producto) in g: 
         
@@ -453,6 +468,7 @@ def devolverProducto():
         if notExistDev:
             g.add((existDev, RDF.type, n.Devolucion))
             g.add((existDev, n.Contiene, producto))
+	    g.add((existDev, n.numeroPedido, Literal(numeroPedido)))
             g.add((existDev, n.estadoDevolucion, Literal("Pendiente de Pago")))
             g.add((existDev, n.HechoPor, usuario))
             
@@ -508,6 +524,7 @@ def obtenerValoracion():
     nombreproducto = str(pedido["nombreProducto"]);
     print numeropedido
     compra = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeropedido)
+    producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombreproducto)
     result = {"numeroPedido": numeropedido, "nombreProducto": nombreproducto, "nombreUsuario": "", "envio": "", "contacto": "", "estado": ""}
     valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido+'_'+nombreproducto)
     if (valoracion, None, None) in g: 
@@ -527,6 +544,7 @@ def obtenerValoracion():
                 result["nombreUsuario"] = o.toPython()
     else:
         g.add((valoracion, RDF.type, n.Valoracion))
+	g.add((valoracion, n.Sobre, producto))
         g.add((valoracion, n.numeroPedido, Literal(numeropedido)))
         g.add((valoracion, n.comentarioEnvio, Literal("")))
         g.add((valoracion, n.comentarioEstado, Literal("")))
@@ -561,7 +579,21 @@ def realizarValoracion():
   except Exception, e:
     print str(e)
     return 'Bad'
-  
+
+@app.route('/pedidoEnviado')
+def pedidoEnviado():
+ try:
+    g.parse('prueba.rdf', format='xml')
+    envio = json.loads(requests.data)
+    numeroPedido = str(envio['numeroPedido'])
+    pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeroPedido)
+    g.add((pedido, n.fechaEntrega, Literal(str(envio['fechaEntrega']))))
+    g.add((pedido, n.EnviadoPor, Literal(envio['nombreTransportista'])))
+    g.add((pedido, n.estadoEnvio, Literal("Enviado")))
+    return 'OK'
+ except Exception, e:
+    print str(e)
+    return 'Bad'
 
 
 if __name__ == '__main__':

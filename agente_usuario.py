@@ -205,6 +205,17 @@ def mispedidos():
   except Exception, e:
     print str(e)
 
+@app.route('/MisDevoluciones')
+def misdevoluciones():
+  try:
+    r = requests.get('http://127.0.0.1:9001/misDevoluciones')
+    devoluciones = json.loads(r.content)
+    for devolucion in devoluciones:
+	devolucion['contiene'] = json.loads(devolucion['contiene'])
+    return render_template('misdevoluciones.html', devoluciones=devoluciones)
+  except Exception, e:
+    print str(e)
+
 
 @app.route('/Recomendaciones')
 def recomendaciones():
