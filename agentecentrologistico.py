@@ -50,12 +50,7 @@ def realizarEnvios():
             for s, p, o in nombreTrans:
                 transportista = {"nombre": o.toPython()}
                 nombreTransportistas.append(transportista)
-        print str(pedidosList)
-        print str(nombreTransportistas)
-        print len(pedidosList)
-        print json.dumps(pedidosList)
-        data = {"pedidos" : ""}
-        print data
+        pedidosPorProcesar = []
         return render_template('envios.html', trans = nombreTransportistas, pedidos= pedidosList)
     except Exception,e:
         print str(e)
