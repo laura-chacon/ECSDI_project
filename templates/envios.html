@@ -1,0 +1,101 @@
+<!DOCTYPE html />
+<HTML>
+   <HEAD>
+      <TITLE>
+         Cesta
+      </TITLE>
+      <style>
+        td {
+        font-family: Verdana;
+        font-size: 15px;
+        padding: 15px;
+        }
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+        font-family: Verdana;
+        font-size: 17px;
+        }
+
+        li {
+        float: left;
+        }
+
+        li a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        }
+
+        li a:hover {
+        background-color: #111;
+        }
+      </style>
+</script>
+      
+      
+   </HEAD>
+<BODY>
+    <ul>
+      <li><a class="active" href="/catalog">Catalogo</a></li>
+      <li><a href="/busqueda">Busqueda</a></li>
+      <li><a href="/MisPedidos">Mis pedidos</a></li>
+      <li><a href="/Cesta">Cesta</a></li>
+      <li><a href="/Recomendaciones">Recomendaciones</a></li>
+    </ul>
+     <table>
+       <tr>
+         <td>
+           <b>Pedido</b>
+         </td>
+         <td>
+           <b>Transportista</b>
+         </td>
+	 <td>
+           <b>Destinatario</b>
+         </td>
+	 <td>
+           <b>Dirreccion</b>
+         </td>
+         <td>
+           <b>Fecha de Entrega</b>
+         </td>
+      
+       </tr>
+       {% for envio in envios %}
+	<form method='post' action="{{url_for(pedidoEnviado)}}">
+       <tr>
+         <td>
+           {{ envio['numPedido']}}
+         </td>
+          <td>
+          <select name="nombreTransportista">
+              {% for transportista in transportista %}
+              <option value="{{transportista['nombre']}}">
+                {{transportista['nombre']}}
+              </option>
+              {% endfor %}
+            </select>
+         </td>
+         <td>
+         {{envio['nombreUsuario']}}
+         </td>
+         <td>
+          {{envio['dirreccion']}}
+         </td>
+	<td>	
+	<input type="date" name="fechaEntrega">
+        </td>
+	<input type="submit" value="Confirmar Envio">
+        </form>        
+          
+       <tr>
+
+         {% endfor %}
+     </table>
+</BODY></HTML> 
