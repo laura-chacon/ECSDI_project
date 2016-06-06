@@ -51,12 +51,5 @@ def realizarPeticion():
     except Exception, e:
         print str(e)
 
-@app.route('/gestionarPedidoExterno')
-def gestionarPedidoExterno():
-    try:
-        return render_template('gestionarPedidoExterno.html')
-    except Exception, e:
-        print str(e)
-
 if __name__ == '__main__':
   app.run(host='127.0.0.1', port=9002)
