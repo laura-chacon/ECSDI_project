@@ -234,6 +234,42 @@ def realizarPedido():
       pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + p)
       numeropedido = Literal(numpedido, datatype=XSD.integer)
       compradorDefault = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombreComprador)
+      print 'PRUEBA AQUI'
+      print Cesta
+      for c in Cesta:
+        print 'PRODUCTO:'
+        print c
+        productoUri = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + definirNombreProducto(c['nombre']))
+        pProducto = str(c['subtotal'])
+        precioProducto = Literal(pProducto, datatype=XSD.integer)
+        if (productoUri, n.VendidoPor, None) in g:
+          vendedorExt = g.triples((productoUri, n.VendidoPor, None))
+          for s, p, o in vendedorExt:
+            print "SUJETO"
+            print s
+            print "PREDICADO"
+            print p
+            print "OBJETO"
+            print o
+            nombreVendedorExterno = g.triples((o,n.nombre,None))
+            nVenExt = "-"
+            for s, p, o in nombreVendedorExterno:
+              print o
+              nVenExt = o
+            cuentaVendedorExterno = g.triples((o,n.cuentaBancaria,None))
+            cuentaVenExt = "-"
+            for s, p, o in cuentaVendedorExterno:
+              print str(o)
+              cuentaVenExt = o.toPython()
+            infoBancoVenExt = { "numpedido" : numpedido,
+                "nombreComprador": nVenExt,
+                "direccionComprador": "-",
+                "totalCompra": precioProducto,
+                "cuentaComprador": cuentaVenExt, 
+                "tipo": "Pago Vendedor Externo"
+            }
+            print infoBancoVenExt
+            r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBancoVenExt))
       g.add((pedido, RDF.type, n.Compra))
       g.add((pedido, n.numeroPedido, numeropedido))
       '''Usuario de pedido por defecto'''
@@ -250,16 +286,16 @@ def realizarPedido():
                     "dirreccion" : direccionComprador
                     }
             print infoEnvio
-            r = requests.post('http://127.0.0.1:9004/derivarPedido', data=json.dumps(infoEnvio))
-            infoBanco = { "numpedido" : numpedido,
+            '''r = requests.post('http://127.0.0.1:9004/derivarPedido', data=json.dumps(infoEnvio))'''
+      infoBanco = { "numpedido" : numpedido,
                 "nombreComprador": nombreComprador,
                 "direccionComprador": direccionComprador,
                 "totalCompra": totalCompra,
                 "cuentaComprador": cuentaComprador, 
                 "tipo": "Compra"
-            }
-            numpedido = numpedido + 1
-            r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBanco))
+      }
+      numpedido = numpedido + 1
+      r = requests.post('http://127.0.0.1:9003/realizarTransaccion', data=json.dumps(infoBanco))
       g.set((n.NombrePedidos, n.contador, Literal(numpedido)))
       g.serialize('prueba.rdf')
       
