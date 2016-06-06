@@ -41,15 +41,16 @@
       <li><a href="/MisPedidos">Mis pedidos</a></li>
       <li><a href="/Cesta">Cesta</a></li>
       <li><a href="/Recomendaciones">Recomendaciones</a></li>
+      <li><a href="/misDevoluciones">Mis Devoluciones</a></li>
   </ul>
   <table>
-    {% for pedido in pedidos %}
+    {% for devolucion in devoluciones %}
     <tr>
       <td>
         <b>Numero pedido:</b>
       </td>
       <td>
-        {{ pedido['numero_pedido'] }}
+        {{ devolucion['numero_pedido'] }}
       </td>
     </tr>
     <tr>
@@ -57,16 +58,16 @@
         <b>Usuario:</b>
       </td>
       <td>
-        {{ pedido['usuario'] }}
+        {{ devolucion['usuario'] }}
 
       </td>
     </tr>
     <tr>
       <td>
-        <b>Estado pedido:</b>
+        <b>Estado de Devolucion:</b>
       </td>
       <td>
-        {{ pedido['estado_pedido'] }}
+        {{ devolucion['estado_devolucion'] }}
       </td>
     </tr>
     <tr>
@@ -76,28 +77,18 @@
       <td>
       </td>
     </tr>
-     {% for producto in pedido['contiene']%}
+     {% for producto in devolucion['contiene']%}
     <tr>
       <td> {{producto['nombre']}}
       </td>
 	<td>
-	{% if pedido['estado_pedido'] == 'Enviado' %}
-      <form action="{{url_for('valorar')}}"  method="post">
-	<input type="hidden" name="nombreProducto" value="{{producto['nombre']}}">
-        <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
-        <input type="submit" value="Valorar">
-       </form>
-	{% endif %}
        </td>
 	
     </tr>
     {%endfor%}
     <tr>
       <td>
-      <form action="{{url_for('devolverPedido')}}"  method="post">
-        <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
-        <input type="submit" value="Devolver Pedido">
-       </form>
+	
       </td>
       <td>
        </td>

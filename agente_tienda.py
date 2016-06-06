@@ -354,6 +354,47 @@ def mispedidos():
   except Exception, e:
     print str(e)
 
+@app.route('/misDevoluciones', methods=['GET'])
+def misDevoluciones():
+  try:
+    result = []
+    g.parse('prueba.rdf', format='xml')
+    devolucion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + "Devolucion")
+    devoluciones = g.triples((None, RDF.type, devolucion))
+    for s, p, o in devoluciones:
+      pedidoID = s
+      contieneList = []
+      pedido = {'numero_pedido': '', 'usuario': '', 'estado_devolucion': '','contiene': []}
+      hechopor = g.triples((pedidoID, n.HechoPor, None))
+      for s, p, o in hechopor:
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          pedido['usuario'] = o.toPython()
+      numero_pedido = g.triples((pedidoID, n.numeroPedido, None))
+      for s, p, o in numero_pedido:
+        pedido['numero_pedido'] = o.toPython()
+      estado_devolucion = g.triples((pedidoID, n.estadoDevolucion, None))
+      for s, p, o in estado_devolucion:
+        pedido['estado_devolucion'] = o.toPython()
+      contiene = g.triples((pedidoID, n.Contiene, None))
+      for s, p, o in contiene:
+        print o
+        nombre = g.triples((o, n.nombre, None))
+        for s, p, o in nombre:
+          producto = {'nombre': o.toPython()}
+          print producto
+          contieneList.append(producto)
+
+      pedido['contiene'] = json.dumps(contieneList)
+      result.append(pedido)
+    print result
+    return json.dumps(result)
+  except Exception, e:
+    print str(e)
+
+
+
+
 def definirNombreProducto(nombre):
   nombre_producto = ""
   for c in nombre:
@@ -453,6 +494,7 @@ def devolverProducto():
         if notExistDev:
             g.add((existDev, RDF.type, n.Devolucion))
             g.add((existDev, n.Contiene, producto))
+	    g.add((existDev, n.numeroPedido, Literal(numeroPedido)))
             g.add((existDev, n.estadoDevolucion, Literal("Pendiente de Pago")))
             g.add((existDev, n.HechoPor, usuario))
             
@@ -508,6 +550,7 @@ def obtenerValoracion():
     nombreproducto = str(pedido["nombreProducto"]);
     print numeropedido
     compra = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeropedido)
+    producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nombreproducto)
     result = {"numeroPedido": numeropedido, "nombreProducto": nombreproducto, "nombreUsuario": "", "envio": "", "contacto": "", "estado": ""}
     valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido+'_'+nombreproducto)
     if (valoracion, None, None) in g: 
@@ -527,6 +570,7 @@ def obtenerValoracion():
                 result["nombreUsuario"] = o.toPython()
     else:
         g.add((valoracion, RDF.type, n.Valoracion))
+	g.add((valoracion, n.Sobre, producto))
         g.add((valoracion, n.numeroPedido, Literal(numeropedido)))
         g.add((valoracion, n.comentarioEnvio, Literal("")))
         g.add((valoracion, n.comentarioEstado, Literal("")))
