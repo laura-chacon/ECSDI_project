@@ -199,6 +199,8 @@ def mispedidos():
   try:
     r = requests.get('http://127.0.0.1:9001/MisPedidos')
     pedidos = json.loads(r.content)
+    for pedido in pedidos:
+	pedido['contiene'] = json.loads(pedido['contiene'])
     return render_template('mispedidos.html', pedidos=pedidos)
   except Exception, e:
     print str(e)
@@ -252,7 +254,8 @@ def devolverProducto():
 def valorar():
     try: 
      numPedido = request.form['numeroPedido']
-     peticion = {"numeroPedido": numPedido}
+     nombreProducto = request.form['nombreProducto']
+     peticion = {"numeroPedido": numPedido, "nombreProducto": nombreProducto}
      peticion = json.dumps(peticion)
      r = requests.get('http://127.0.0.1:9001/obtenerValoracion', data=peticion)
      result = json.loads(r.content)
@@ -266,10 +269,11 @@ def valorar():
 def realizarValoracion():
     try: 
      numPedido = request.form['numeroPedido']
+     nombreProducto = request.form['nombreProducto']
      envio = request.form['envio'].strip()
      contacto = request.form['contacto'].strip()
      estado = request.form['estado'].strip()
-     peticion = {"numeroPedido": numPedido, "envio": envio, "estado": estado, "contacto": contacto}
+     peticion = {"numeroPedido": numPedido, "nombreProducto": nombreProducto, "envio": envio, "estado": estado, "contacto": contacto}
      peticion = json.dumps(peticion)
      r = requests.get('http://127.0.0.1:9001/realizarValoracion', data=peticion)
      return "Valoracion Hecha"

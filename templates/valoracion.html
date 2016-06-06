@@ -42,10 +42,11 @@
       <li><a href="/Cesta">Cesta</a></li>
       <li><a href="/Recomendaciones">Recomendaciones</a></li>
   </ul>
-  <h3> Valorar Pedido {{valoracion["numeroPedido"]}}</h3>
+  <h3> Valorar Pedido {{valoracion["numeroPedido"]}} de Producto {{valoracion["nombreProducto"]}}</h3>
   <h4> Por {{valoracion["nombreUsuario"]}} </h4>
   <form action="{{url_for('realizarValoracion')}}"  method="post">
     <input type="hidden" name="numeroPedido" value="{{valoracion["numeroPedido"]}}">
+    <input type="hidden" name="nombreProducto" value="{{valoracion["nombreProducto"]}}">
     <table>
         <tr>
         <td>

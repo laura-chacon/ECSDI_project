@@ -74,24 +74,34 @@
         <b>Contiene:</b>
       </td>
       <td>
-        {{ pedido['contiene'] }}
       </td>
     </tr>
+     {% for producto in pedido['contiene']%}
     <tr>
-      <td></td><td></td>
-    </tr>
-    <tr>
-      <td>
-      <form action="{{url_for('devolverPedido')}}"  method="post">
-        <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
-        <input type="submit" value="DevolverPedido">
-       </form>
+      <td> {{producto['nombre']}}
       </td>
-      <td>
+	<td>
+	{% if pedido['estado_pedido'] == 'Enviado' %}
       <form action="{{url_for('valorar')}}"  method="post">
+	<input type="hidden" name="nombreProducto" value="{{producto['nombre']}}">
         <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
         <input type="submit" value="Valorar">
        </form>
+	{% endif %}
+       </td>
+	
+    </tr>
+    {%endfor%}
+    <tr>
+      <td>
+	{% if pedido['estado_pedido'] == 'Enviado' %}
+      <form action="{{url_for('devolverPedido')}}"  method="post">
+        <input type="hidden" name="numeroPedido" value="{{pedido['numero_pedido']}}">
+        <input type="submit" value="Devolver Pedido">
+       </form>
+	{% endif %}
+      </td>
+      <td>
        </td>
     </tr>
     {% endfor %}

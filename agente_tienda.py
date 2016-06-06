@@ -459,11 +459,6 @@ def devolverProducto():
         compra =  URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + str(numeropedido))
         
         g.remove((compra, n.Contiene, producto))
-        
-        if (compra, n.Contiene, None) in g:
-            print 'existen productos'
-        else :
-            g.set((compra, n.estadoPedido, Literal("Devuelto")))
     
         nombreUsuario = ""
         direccionComprador = ""
@@ -482,8 +477,6 @@ def devolverProducto():
         totalC = g.triples((compra, n.Total, None))
         for s, p, o in totalC:
             totalCompra = str(o.toPython())
-        
-        #FALTA TOTAL
         infoBanco = { "numpedido" : numeropedido,
                     "nombreComprador": nombreUsuario,
                     "direccionComprador": direccionComprador,
@@ -512,10 +505,11 @@ def obtenerValoracion():
     result = []
     pedido = json.loads(request.data)
     numeropedido = str(pedido["numeroPedido"])
+    nombreproducto = str(pedido["nombreProducto"]);
     print numeropedido
     compra = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeropedido)
-    result = {"numeroPedido": numeropedido, "nombreUsuario": "", "envio": "", "contacto": "", "estado": ""}
-    valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido)
+    result = {"numeroPedido": numeropedido, "nombreProducto": nombreproducto, "nombreUsuario": "", "envio": "", "contacto": "", "estado": ""}
+    valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido+'_'+nombreproducto)
     if (valoracion, None, None) in g: 
         nval = g.triples((valoracion, n.comentarioEnvio, None))
         for s,p, o in nval:
@@ -555,8 +549,9 @@ def realizarValoracion():
     g.parse('prueba.rdf', format='xml')
     nuevaVal = json.loads(request.data)
     numeropedido = str(nuevaVal["numeroPedido"])
+    nombreproducto = str(nuevaVal["nombreProducto"])
     print numeropedido
-    valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido)
+    valoracion = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_' + numeropedido+'_'+nombreproducto)
     g.set((valoracion, n.comentarioEnvio, Literal(nuevaVal["envio"])))
     g.set((valoracion, n.comentarioEstado, Literal(nuevaVal["estado"])))
     g.set((valoracion, n.comentarioContacto, Literal(nuevaVal["contacto"])))

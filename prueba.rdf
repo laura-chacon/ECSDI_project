@@ -3,245 +3,82 @@
    xmlns="http://www.owl-ontologies.com/ECSDI/projectX.owl#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 >
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_512">
-    <estadoPedido>Devuelto</estadoPedido>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Susan">
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></nombre>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6545213</cuentaBancaria>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Jordi 5</direccion>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Camiseta">
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
+    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona"/>
+    <VendidoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Pepe"/>
+    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">23</precio>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Ropa"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camiseta</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona">
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centro Logistico Barcelona</nombre>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Televisor">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Electronica"/>
+    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">324</precio>
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Televisor</nombre>
+    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje">
+    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoMadrid"/>
+    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">maquillaje</descripcion>
+    <VendidoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Meritxell"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Base de maquillaje</nombre>
+    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">15</precio>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Cosmetica"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_513">
     <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <Total rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">60</Total>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">512</numeroPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_505">
-    <comentarioEnvio></comentarioEnvio>
-    <comentarioContacto></comentarioContacto>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion"/>
-    <numeroPedido>505</numeroPedido>
-    <comentarioEstado></comentarioEstado>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Pepe">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
-    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43242342</cuentaBancaria>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pepe</nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_504">
-    <estadoPedido>En Proceso</estadoPedido>
     <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">504</numeroPedido>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
+    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">513</numeroPedido>
+    <estadoPedido>En Proceso</estadoPedido>
+    <Total rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</Total>
+    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Fedex">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fedex</nombre>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Meritxell">
     <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
     <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></cuentaBancaria>
     <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Meritxell</nombre>
   </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_510">
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <estadoPedido>En Proceso</estadoPedido>
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">510</numeroPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_508">
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_511">
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">511</numeroPedido>
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <estadoPedido>Pagado</estadoPedido>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_508">
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">508</numeroPedido>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <estadoPedido>Devuelto</estadoPedido>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Susan">
-    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">6545213</cuentaBancaria>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></nombre>
-    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Jordi 5</direccion>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje">
-    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoMadrid"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Cosmetica"/>
-    <VendidoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Meritxell"/>
-    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">15</precio>
-    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">maquillaje</descripcion>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Base de maquillaje</nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Televisor">
-    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Electronica"/>
-    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">324</precio>
-    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Televisor</nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_502">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion"/>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <comentarioEstado>fsdfsfsf           &#13;
-        &#13;
-        &#13;
-        &#13;
-        </comentarioEstado>
-    <comentarioContacto>kjflsjdlfksjlf            &#13;
-            &#13;
-            &#13;
-            </comentarioContacto>
-    <numeroPedido>502</numeroPedido>
-    <comentarioEnvio>esto no me acaba de convencer&#13;
-        &#13;
-        </comentarioEnvio>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Camiseta">
-    <descripcion rdf:datatype="http://www.w3.org/2001/XMLSchema#string"></descripcion>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camiseta</nombre>
-    <En rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona"/>
-    <VendidoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Pepe"/>
-    <precio rdf:datatype="http://www.w3.org/2001/XMLSchema#int">23</precio>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Ropa"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_506">
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_503">
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Televisor"/>
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_505">
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_506">
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
-    <estadoPedido>Devuelto</estadoPedido>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">506</numeroPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_503">
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">503</numeroPedido>
-    <estadoPedido>Pagado</estadoPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_509">
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">509</numeroPedido>
-    <estadoPedido>Devuelto</estadoPedido>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura">
-    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Jose 4</direccion>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
-    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12345</cuentaBancaria>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_507">
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">507</numeroPedido>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-    <estadoPedido>Devuelto</estadoPedido>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_{u'tipo': u'Compra', u'numeroPedido': 510}">
-    <estadoPedido>Pagado</estadoPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_502">
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">502</numeroPedido>
-    <estadoPedido>Pagado</estadoPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_509">
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <estadoDevolucion>Pagado</estadoDevolucion>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_512">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_506">
-    <comentarioEnvio></comentarioEnvio>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther"/>
-    <comentarioContacto></comentarioContacto>
-    <numeroPedido>506</numeroPedido>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion"/>
-    <comentarioEstado></comentarioEstado>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoBarcelona">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centro Logistico Barcelona</nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion_503">
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Valoracion"/>
-    <comentarioEnvio>sdsfsf</comentarioEnvio>
-    <comentarioContacto>sdfsfdsf</comentarioContacto>
-    <numeroPedido>503</numeroPedido>
-    <comentarioEstado>fdsfs</comentarioEstado>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_{u'tipo': u'Compra', u'numeroPedido': 509}">
-    <estadoPedido>Pagado</estadoPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_505">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra"/>
-    <numeroPedido rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">505</numeroPedido>
-    <estadoPedido>Devuelto</estadoPedido>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_507">
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Basedemaquillaje"/>
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#MRW">
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MRW</nombre>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#NombrePedidos">
-    <contador rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">513</contador>
-  </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Esther">
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45678</cuentaBancaria>
+    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Maria 65</direccion>
     <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Esther</nombre>
     <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
-    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Maria 65</direccion>
-    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">45678</cuentaBancaria>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura">
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Laura</nombre>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">12345</cuentaBancaria>
+    <direccion rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Calle Jose 4</direccion>
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno_Pepe">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#VendedorExterno"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pepe</nombre>
+    <cuentaBancaria rdf:datatype="http://www.w3.org/2001/XMLSchema#string">43242342</cuentaBancaria>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#MRW">
+    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MRW</nombre>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#NombrePedidos">
+    <contador rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">514</contador>
   </rdf:Description>
   <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogisticoMadrid">
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centro Logistico Madrid</nombre>
     <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#CentroLogistico"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Fedex">
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Transportista"/>
-    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fedex</nombre>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_500">
-    <estadoPedido>Pagado</estadoPedido>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion_502">
-    <Contiene rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Televisor"/>
-    <rdf:type rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Devolucion"/>
-    <estadoDevolucion>Pendiente de Pago</estadoDevolucion>
-    <HechoPor rdf:resource="http://www.owl-ontologies.com/ECSDI/projectX.owl#Usuario_Laura"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_501">
-    <estadoPedido>Pagado</estadoPedido>
+    <nombre rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Centro Logistico Madrid</nombre>
   </rdf:Description>
 </rdf:RDF>
