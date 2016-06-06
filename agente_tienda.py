@@ -276,7 +276,7 @@ def realizarPedido():
       g.add((pedido, n.HechoPor, compradorDefault))
       g.add((pedido, n.estadoPedido, Literal('En Proceso')))
       g.add((pedido, n.Total, Literal(totalCompra)))
-      '''Anado productos comprados'''
+      g.add((pedido, n.fechaEntrega, Literal('')))
       for p in Cesta:
             nprod = definirNombreProducto(p['nombre']) 
             producto = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#' + nprod)
@@ -286,7 +286,7 @@ def realizarPedido():
                     "dirreccion" : direccionComprador
                     }
             print infoEnvio
-            '''r = requests.post('http://127.0.0.1:9004/derivarPedido', data=json.dumps(infoEnvio))'''
+            r = requests.post('http://127.0.0.1:9004/derivarPedido', data=json.dumps(infoEnvio))
       infoBanco = { "numpedido" : numpedido,
                 "nombreComprador": nombreComprador,
                 "direccionComprador": direccionComprador,
@@ -341,7 +341,7 @@ def mispedidos():
     for s, p, o in pedidos:
       pedidoID = s
       contieneList = []
-      pedido = {'numero_pedido': '', 'usuario': '', 'estado_pedido': '','contiene': []}
+      pedido = {'numero_pedido': '', 'usuario': '', 'estado_pedido': '','contiene': [], "fechaEntrega":""}
       hechopor = g.triples((pedidoID, n.HechoPor, None))
       for s, p, o in hechopor:
         nombre = g.triples((o, n.nombre, None))
@@ -353,13 +353,14 @@ def mispedidos():
       estado_pedido = g.triples((pedidoID, n.estadoPedido, None))
       for s, p, o in estado_pedido:
         pedido['estado_pedido'] = o.toPython()
+      fechaEntrega = g.triples((pedidoID, n.fechaEntrega, None))
+      for s, p, o in fechaEntrega:
+        pedido['fechaEntrega'] = o.toPython()
       contiene = g.triples((pedidoID, n.Contiene, None))
       for s, p, o in contiene:
-        print o
         nombre = g.triples((o, n.nombre, None))
         for s, p, o in nombre:
           producto = {'nombre': o.toPython()}
-          print producto
           contieneList.append(producto)
       pedido['contiene'] = json.dumps(contieneList)
       result.append(pedido)
@@ -624,9 +625,9 @@ def pedidoEnviado():
     print envio
     numeroPedido = str(envio['numeroPedido'])
     pedido = URIRef('http://www.owl-ontologies.com/ECSDI/projectX.owl#Compra_' + numeroPedido)
-    g.add((pedido, n.fechaEntrega, Literal(str(envio['fechaEntrega']))))
+    g.set((pedido, n.fechaEntrega, Literal(str(envio['fechaEntrega']))))
     g.add((pedido, n.EnviadoPor, Literal(envio['nombreTransportista'])))
-    g.add((pedido, n.estadoEnvio, Literal("Enviado")))
+    g.set((pedido, n.estadoPedido, Literal("Enviado")))
     g.serialize('prueba.rdf')
     return 'OK'
  except Exception, e:
